@@ -17,71 +17,81 @@ export module SQLTypes {
     createDoublePrecision(): DOUBLE_PRECISION;
     createDate(): DATE;
     createTime(): TIME;
-    createTimeStamp(precision: number): TIMESTAMP;
+    createTimeStamp(tz: string): TIMESTAMP;
     createInterval(from: string, to: string): INTERVAL;
     createBoolean(): BOOLEAN;
     createXML(): XML;
   }
 
-  export interface CHAR {
-    getLength(): number;
+  export abstract class CHAR {
+    abstract length: number;
+    abstract getLength(): number;
   }
 
-  export interface VARCHAR {
-    getLength(): number;
+  export abstract class VARCHAR {
+    abstract length: number;
+    abstract getLength(): number;
   }
 
-  export interface CLOB {}
+  export abstract class CLOB {}
 
-  export interface BINARY {
-    getLength(): number;
+  export abstract class BINARY {
+    abstract length: number;
+    abstract getLength(): number;
   }
 
-  export interface VARBINARY {
-    getLength(): number;
+  export abstract class VARBINARY {
+    abstract length: number;
+    abstract getLength(): number;
   }
-  export interface BLOB {}
+  export abstract class BLOB {}
 
-  export interface NUMERIC {
-    getPrecision(): number;
-    getScale(): number;
-  }
-
-  export interface DECIMAL {
-    getPrecision(): number;
-    getScale(): number;
+  export abstract class NUMERIC {
+    abstract precision: number;
+    abstract scale: number;
+    abstract getPrecision(): number;
+    abstract getScale(): number;
   }
 
-  export interface SMALLINT {}
-
-  export interface BIGINT {
-    getLength(): number;
+  export abstract class DECIMAL {
+    abstract precision: number;
+    abstract scale: number;
+    abstract getPrecision(): number;
+    abstract getScale(): number;
   }
 
-  export interface INTEGER {}
+  export abstract class SMALLINT {}
 
-  export interface FLOAT {
-    getPrecision(): number;
+  export abstract class BIGINT {}
+
+  export abstract class INTEGER {}
+
+  export abstract class FLOAT {
+    abstract precision: number;
+    abstract getPrecision(): number;
   }
 
-  export interface REAL {}
+  export abstract class REAL {}
 
-  export interface DOUBLE_PRECISION {}
+  export abstract class DOUBLE_PRECISION {}
 
-  export interface DATE {}
+  export abstract class DATE {}
 
-  export interface TIME {}
+  export abstract class TIME {}
 
-  export interface TIMESTAMP {
-    getWithTimeZone(): boolean;
+  export abstract class TIMESTAMP {
+    abstract tz: string;
+    abstract getWithTimeZone(): boolean;
   }
 
-  export interface INTERVAL {
-    getFrom(): string;
-    getTo(): string;
+  export abstract class INTERVAL {
+    abstract from: string;
+    abstract to: string;
+    abstract getFrom(): string;
+    abstract getTo(): string;
   }
 
-  export interface BOOLEAN {}
+  export abstract class BOOLEAN {}
 
-  export interface XML {}
+  export abstract class XML {}
 }
