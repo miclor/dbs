@@ -5,7 +5,7 @@ export module SQLTypes {
     createVarchar(len: number): VARCHAR;
     createClob(): CLOB;
     createBinary(precision: number): BINARY;
-    createVarBinary(precision: number): VARBINARY;
+    createVarbinary(precision: number): VARBINARY;
     createBlob(): BLOB;
     createNumeric(precision: number, scale: number): NUMERIC;
     createDecimal(precision: number, scale: number): DECIMAL;
@@ -80,7 +80,7 @@ export module SQLTypes {
   export abstract class TIME {}
 
   export abstract class TIMESTAMP {
-    abstract tz: string;
+    abstract tz: string | null;
     abstract getWithTimeZone(): boolean;
   }
 

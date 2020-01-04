@@ -12,9 +12,9 @@ export class PostgresTypeFactory implements SQLTypes.TypeFactory {
     return new PostgresCLOB();
   }
   public createBinary(precision: number): SQLTypes.BINARY {
-    return new PostgresBinary(precision);
+    return new PostgresBINARY(precision);
   }
-  public createVarBinary(precision: number): SQLTypes.VARBINARY {
+  public createVarbinary(precision: number): SQLTypes.VARBINARY {
     return new PostgresVARBINARY(precision);
   }
   public createBlob(): SQLTypes.BLOB {
@@ -24,7 +24,7 @@ export class PostgresTypeFactory implements SQLTypes.TypeFactory {
     return new PostgresNUMERIC(precision, scale);
   }
   public createDecimal(precision: number, scale: number): SQLTypes.DECIMAL {
-    return new PostgresDecimal(precision, scale);
+    return new PostgresDECIMAL(precision, scale);
   }
   public createSmallInt(): SQLTypes.SMALLINT {
     return new PostgresSMALLINT();
@@ -54,7 +54,7 @@ export class PostgresTypeFactory implements SQLTypes.TypeFactory {
     return new PostgresTIMESTAMP(tz);
   }
   public createInterval(from: string, to: string): SQLTypes.INTERVAL {
-    return new PostgresInterval(from, to);
+    return new PostgresINTERVAL(from, to);
   }
   public createBoolean(): SQLTypes.BOOLEAN {
     return new PostgresBOOLEAN();
@@ -88,7 +88,7 @@ export class PostgresCLOB implements SQLTypes.CLOB {
   constructor() {}
 }
 
-export class PostgresBinary implements SQLTypes.BINARY {
+export class PostgresBINARY implements SQLTypes.BINARY {
   length: number;
   constructor(s: number) {
     this.length = s;
@@ -127,7 +127,7 @@ export class PostgresNUMERIC implements SQLTypes.NUMERIC {
   }
 }
 
-export class PostgresDecimal implements SQLTypes.DECIMAL {
+export class PostgresDECIMAL implements SQLTypes.DECIMAL {
   precision: number;
   scale: number;
   constructor(p: number, s: number) {
@@ -181,21 +181,25 @@ export class PostgresTIME implements SQLTypes.TIME {
 }
 
 export class PostgresTIMESTAMP implements SQLTypes.TIMESTAMP {
-  tz: string;
-  constructor(tz: string) {
+  tz: string | null;
+  constructor(tz: string | null) {
     this.tz = tz;
   }
 
   getWithTimeZone(): boolean {
-    if (this.tz.length > 0) {
-      return true;
+    if (this.tz !== null) {
+      if (this.tz.length > 0) {
+        return true;
+      } else {
+        return false;
+      }
     } else {
       return false;
     }
   }
 }
 
-export class PostgresInterval implements SQLTypes.INTERVAL {
+export class PostgresINTERVAL implements SQLTypes.INTERVAL {
   from: string;
   to: string;
   constructor(from: string, to: string) {
