@@ -1,4 +1,13 @@
 //https://en.wikibooks.org/wiki/Structured_Query_Language/Data_Types
+
+// generic domains
+export module Domains {
+  abstract class GenericDomain {}
+  abstract class StringType extends GenericDomain {}
+  abstract class IntegerType extends GenericDomain {}
+  abstract class FloatType extends GenericDomain {}
+}
+
 export module SQLTypes {
   export interface TypeFactory {
     createChar(len: number): CHAR;

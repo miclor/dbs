@@ -80,6 +80,12 @@ it("Create PostgreSQL smallint type", () => {
   expect(pg_text instanceof PostgresSMALLINT).toBe(true);
 });
 
+it("Create PostgreSQL integer type", () => {
+  let pgf = new PostgresTypeFactory();
+  let pg_text = pgf.createIntger();
+  expect(pg_text instanceof PostgresINTEGER).toBe(true);
+});
+
 it("Create PostgreSQL bigint type", () => {
   let pgf = new PostgresTypeFactory();
   let pg_text = pgf.createBigInt();

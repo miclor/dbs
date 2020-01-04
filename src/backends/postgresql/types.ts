@@ -64,9 +64,10 @@ export class PostgresTypeFactory implements SQLTypes.TypeFactory {
   }
 }
 
-export class PostgresCHAR implements SQLTypes.CHAR {
+export class PostgresCHAR extends SQLTypes.CHAR {
   length: number;
   constructor(s: number) {
+    super();
     this.length = s;
   }
   public getLength() {
@@ -74,9 +75,10 @@ export class PostgresCHAR implements SQLTypes.CHAR {
   }
 }
 
-export class PostgresVARCHAR implements SQLTypes.VARCHAR {
+export class PostgresVARCHAR extends SQLTypes.VARCHAR {
   length: number;
   constructor(s: number) {
+    super();
     this.length = s;
   }
   public getLength() {
@@ -84,13 +86,16 @@ export class PostgresVARCHAR implements SQLTypes.VARCHAR {
   }
 }
 
-export class PostgresCLOB implements SQLTypes.CLOB {
-  constructor() {}
+export class PostgresCLOB extends SQLTypes.CLOB {
+  constructor() {
+    super();
+  }
 }
 
-export class PostgresBINARY implements SQLTypes.BINARY {
+export class PostgresBINARY extends SQLTypes.BINARY {
   length: number;
   constructor(s: number) {
+    super();
     this.length = s;
   }
   public getLength() {
@@ -98,9 +103,10 @@ export class PostgresBINARY implements SQLTypes.BINARY {
   }
 }
 
-export class PostgresVARBINARY implements SQLTypes.VARBINARY {
+export class PostgresVARBINARY extends SQLTypes.VARBINARY {
   length: number;
   constructor(s: number) {
+    super();
     this.length = s;
   }
   public getLength() {
@@ -108,14 +114,17 @@ export class PostgresVARBINARY implements SQLTypes.VARBINARY {
   }
 }
 
-export class PostgresBLOB implements SQLTypes.BLOB {
-  constructor() {}
+export class PostgresBLOB extends SQLTypes.BLOB {
+  constructor() {
+    super();
+  }
 }
 
-export class PostgresNUMERIC implements SQLTypes.NUMERIC {
+export class PostgresNUMERIC extends SQLTypes.NUMERIC {
   precision: number;
   scale: number;
   constructor(p: number, s: number) {
+    super();
     this.precision = p;
     this.scale = s;
   }
@@ -127,10 +136,11 @@ export class PostgresNUMERIC implements SQLTypes.NUMERIC {
   }
 }
 
-export class PostgresDECIMAL implements SQLTypes.DECIMAL {
+export class PostgresDECIMAL extends SQLTypes.DECIMAL {
   precision: number;
   scale: number;
   constructor(p: number, s: number) {
+    super();
     this.precision = p;
     this.scale = s;
   }
@@ -142,21 +152,28 @@ export class PostgresDECIMAL implements SQLTypes.DECIMAL {
   }
 }
 
-export class PostgresSMALLINT implements SQLTypes.SMALLINT {
-  constructor() {}
+export class PostgresSMALLINT extends SQLTypes.SMALLINT {
+  constructor() {
+    super();
+  }
 }
 
-export class PostgresINTEGER implements SQLTypes.INTEGER {
-  constructor() {}
+export class PostgresINTEGER extends SQLTypes.INTEGER {
+  constructor() {
+    super();
+  }
 }
 
-export class PostgresBIGINT implements SQLTypes.BIGINT {
-  constructor() {}
+export class PostgresBIGINT extends SQLTypes.BIGINT {
+  constructor() {
+    super();
+  }
 }
 
-export class PostgresFLOAT implements SQLTypes.FLOAT {
+export class PostgresFLOAT extends SQLTypes.FLOAT {
   precision: number;
   constructor(l: number) {
+    super();
     this.precision = l;
   }
   getPrecision(): number {
@@ -164,25 +181,34 @@ export class PostgresFLOAT implements SQLTypes.FLOAT {
   }
 }
 
-export class PostgresREAL implements SQLTypes.REAL {
-  constructor() {}
+export class PostgresREAL extends SQLTypes.REAL {
+  constructor() {
+    super();
+  }
 }
 
-export class PostgresDOUBLE_PRECISION implements SQLTypes.DOUBLE_PRECISION {
-  constructor() {}
+export class PostgresDOUBLE_PRECISION extends SQLTypes.DOUBLE_PRECISION {
+  constructor() {
+    super();
+  }
 }
 
-export class PostgresDATE implements SQLTypes.DATE {
-  constructor() {}
+export class PostgresDATE extends SQLTypes.DATE {
+  constructor() {
+    super();
+  }
 }
 
-export class PostgresTIME implements SQLTypes.TIME {
-  constructor() {}
+export class PostgresTIME extends SQLTypes.TIME {
+  constructor() {
+    super();
+  }
 }
 
-export class PostgresTIMESTAMP implements SQLTypes.TIMESTAMP {
+export class PostgresTIMESTAMP extends SQLTypes.TIMESTAMP {
   tz: string | null;
   constructor(tz: string | null) {
+    super();
     this.tz = tz;
   }
 
@@ -199,10 +225,11 @@ export class PostgresTIMESTAMP implements SQLTypes.TIMESTAMP {
   }
 }
 
-export class PostgresINTERVAL implements SQLTypes.INTERVAL {
+export class PostgresINTERVAL extends SQLTypes.INTERVAL {
   from: string;
   to: string;
   constructor(from: string, to: string) {
+    super();
     this.from = from;
     this.to = to;
   }
@@ -214,10 +241,14 @@ export class PostgresINTERVAL implements SQLTypes.INTERVAL {
   }
 }
 
-export class PostgresBOOLEAN implements SQLTypes.BOOLEAN {
-  constructor() {}
+export class PostgresBOOLEAN extends SQLTypes.BOOLEAN {
+  constructor() {
+    super();
+  }
 }
 
-export class PostgresXML implements SQLTypes.XML {
-  constructor() {}
+export class PostgresXML extends SQLTypes.XML {
+  constructor() {
+    super();
+  }
 }
