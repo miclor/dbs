@@ -96,10 +96,3 @@ it("Create generic table", () => {
 
   expect(testTableInstance instanceof RelationalContainer.Table).toBe(true);
 });
-
-// it("Create generic table", () => {
-//   let len: number = 20;
-//   let pgf = new RelationalContainer.Table();
-//   let pg_char = pgf.createChar(len);
-//   expect(pg_char instanceof PostgresCHAR).toBe(true);
-// });
