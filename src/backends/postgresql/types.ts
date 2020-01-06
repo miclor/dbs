@@ -1,5 +1,4 @@
 import { SQLTypes } from "../../types";
-import { threadId } from "worker_threads";
 
 export class PostgresTypeFactory implements SQLTypes.TypeFactory {
   public createChar(len: number): SQLTypes.CHAR {
