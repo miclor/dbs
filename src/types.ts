@@ -2,10 +2,10 @@
 
 // generic domains
 export module Domains {
-  abstract class GenericDomain {}
-  abstract class StringType extends GenericDomain {}
-  abstract class IntegerType extends GenericDomain {}
-  abstract class FloatType extends GenericDomain {}
+  export abstract class GenericDomain {}
+  export abstract class StringDomain extends GenericDomain {}
+  export abstract class IntegerDomain extends GenericDomain {}
+  export abstract class FloatDomain extends GenericDomain {}
 }
 
 export module SQLTypes {
@@ -32,7 +32,9 @@ export module SQLTypes {
     createXML(): XML;
   }
 
-  export abstract class CHAR {
+  export abstract class SQLType extends Domains.GenericDomain {}
+
+  export abstract class CHAR extends SQLType {
     abstract length: number;
     abstract getLength(): number;
   }
