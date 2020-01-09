@@ -64,6 +64,8 @@ export module PostgresTypes {
     }
   }
 
+  export type PostgresType = PostgresCHAR | PostgresVARCHAR | PostgresCLOB;
+
   export class PostgresCHAR extends SQLTypes.CHAR {
     length: number;
     constructor(s: number) {

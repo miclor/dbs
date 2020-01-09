@@ -1,19 +1,23 @@
 import { PostgresTypes } from "../../../src/backends/postgresql/types";
+import { PostgresStructures } from "../../../src/backends/postgresql/datastructures";
 
 it("Create PostgreSQL table", () => {
   let pgf = new PostgresTypes.PostgresTypeFactory();
   let len: number = 20;
-  let pg_text = pgf.createVarchar(len);
+  let pg_varchar20 = pgf.createVarchar(len);
 
-  let pgTableFac = new PostgresTable.PostgresTableFactory();
-
-  let pgColumnFac = new PostgresColumns.PostgresColumnFactory();
-
-  let testTableInstance = pgTableFac.createSimpleTable(
-    "SomeTestTable",
-    [stringColInstance],
-    []
+  let col1 = new PostgresStructures.PostgresColumn("col1", pg_varchar20);
+  let col2 = new PostgresStructures.PostgresColumn("col2", pg_varchar20);
+  let con1 = new PostgresStructures.PostgresConstraint(
+    "constraint1",
+    "schema1"
   );
 
-  expect(testTableInstance instanceof Postgres.Table).toBe(true);
+  let test_table = new PostgresStructures.PostgresTable(
+    "table1",
+    [col1, col2],
+    [con1]
+  );
+
+  expect(test_table instanceof PostgresStructures.PostgresTable).toBe(true);
 });
