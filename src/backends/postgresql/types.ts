@@ -1,72 +1,72 @@
 import { SQLTypes } from "../../types";
 
 export module PostgresTypes {
-  export class PostgresTypeFactory implements SQLTypes.TypeFactory {
+  export class PostgresTypeFactory implements SQLTypes.SQLTypeFactory {
     public createChar(len: number): SQLTypes.CHAR {
-      return new PostgresCHAR(len);
+      return new CHAR(len);
     }
     public createVarchar(len: number): SQLTypes.VARCHAR {
-      return new PostgresVARCHAR(len);
+      return new VARCHAR(len);
     }
     public createClob(): SQLTypes.CLOB {
-      return new PostgresCLOB();
+      return new CLOB();
     }
     public createBinary(precision: number): SQLTypes.BINARY {
-      return new PostgresBINARY(precision);
+      return new BINARY(precision);
     }
     public createVarbinary(precision: number): SQLTypes.VARBINARY {
-      return new PostgresVARBINARY(precision);
+      return new VARBINARY(precision);
     }
     public createBlob(): SQLTypes.BLOB {
-      return new PostgresBLOB();
+      return new BLOB();
     }
     public createNumeric(precision: number, scale: number): SQLTypes.NUMERIC {
-      return new PostgresNUMERIC(precision, scale);
+      return new NUMERIC(precision, scale);
     }
     public createDecimal(precision: number, scale: number): SQLTypes.DECIMAL {
-      return new PostgresDECIMAL(precision, scale);
+      return new DECIMAL(precision, scale);
     }
     public createSmallInt(): SQLTypes.SMALLINT {
-      return new PostgresSMALLINT();
+      return new SMALLINT();
     }
     public createIntger(): SQLTypes.INTEGER {
-      return new PostgresINTEGER();
+      return new INTEGER();
     }
     public createBigInt(): SQLTypes.BIGINT {
-      return new PostgresBIGINT();
+      return new BIGINT();
     }
     public createFloat(precision: number): SQLTypes.FLOAT {
-      return new PostgresFLOAT(precision);
+      return new FLOAT(precision);
     }
     public createReal(): SQLTypes.REAL {
-      return new PostgresREAL();
+      return new REAL();
     }
     public createDoublePrecision(): SQLTypes.DOUBLE_PRECISION {
-      return new PostgresDOUBLE_PRECISION();
+      return new DOUBLE_PRECISION();
     }
     public createDate(): SQLTypes.DATE {
-      return new PostgresDATE();
+      return new DATE();
     }
     public createTime(): SQLTypes.TIME {
-      return new PostgresTIME();
+      return new TIME();
     }
     public createTimeStamp(tz: string): SQLTypes.TIMESTAMP {
-      return new PostgresTIMESTAMP(tz);
+      return new TIMESTAMP(tz);
     }
     public createInterval(from: string, to: string): SQLTypes.INTERVAL {
-      return new PostgresINTERVAL(from, to);
+      return new INTERVAL(from, to);
     }
     public createBoolean(): SQLTypes.BOOLEAN {
-      return new PostgresBOOLEAN();
+      return new BOOLEAN();
     }
     public createXML(): SQLTypes.XML {
-      return new PostgresXML();
+      return new XML();
     }
   }
 
-  export type PostgresType = PostgresCHAR | PostgresVARCHAR | PostgresCLOB;
+  export type Type = CHAR | VARCHAR | CLOB | BINARY | VARBINARY | BLOB | NUMERIC | DECIMAL | SMALLINT | INTEGER | BIGINT | FLOAT | REAL | DOUBLE_PRECISION | DATE | TIME |TIMESTAMP | INTERVAL | BOOLEAN | XML;
 
-  export class PostgresCHAR extends SQLTypes.CHAR {
+  export class CHAR extends SQLTypes.CHAR {
     length: number;
     constructor(s: number) {
       super();
@@ -77,7 +77,7 @@ export module PostgresTypes {
     }
   }
 
-  export class PostgresVARCHAR extends SQLTypes.VARCHAR {
+  export class VARCHAR extends SQLTypes.VARCHAR {
     length: number;
     constructor(s: number) {
       super();
@@ -88,13 +88,13 @@ export module PostgresTypes {
     }
   }
 
-  export class PostgresCLOB extends SQLTypes.CLOB {
+  export class CLOB extends SQLTypes.CLOB {
     constructor() {
       super();
     }
   }
 
-  export class PostgresBINARY extends SQLTypes.BINARY {
+  export class BINARY extends SQLTypes.BINARY {
     length: number;
     constructor(s: number) {
       super();
@@ -105,7 +105,7 @@ export module PostgresTypes {
     }
   }
 
-  export class PostgresVARBINARY extends SQLTypes.VARBINARY {
+  export class VARBINARY extends SQLTypes.VARBINARY {
     length: number;
     constructor(s: number) {
       super();
@@ -116,13 +116,13 @@ export module PostgresTypes {
     }
   }
 
-  export class PostgresBLOB extends SQLTypes.BLOB {
+  export class BLOB extends SQLTypes.BLOB {
     constructor() {
       super();
     }
   }
 
-  export class PostgresNUMERIC extends SQLTypes.NUMERIC {
+  export class NUMERIC extends SQLTypes.NUMERIC {
     precision: number;
     scale: number;
     constructor(p: number, s: number) {
@@ -138,7 +138,7 @@ export module PostgresTypes {
     }
   }
 
-  export class PostgresDECIMAL extends SQLTypes.DECIMAL {
+  export class DECIMAL extends SQLTypes.DECIMAL {
     precision: number;
     scale: number;
     constructor(p: number, s: number) {
@@ -154,25 +154,25 @@ export module PostgresTypes {
     }
   }
 
-  export class PostgresSMALLINT extends SQLTypes.SMALLINT {
+  export class SMALLINT extends SQLTypes.SMALLINT {
     constructor() {
       super();
     }
   }
 
-  export class PostgresINTEGER extends SQLTypes.INTEGER {
+  export class INTEGER extends SQLTypes.INTEGER {
     constructor() {
       super();
     }
   }
 
-  export class PostgresBIGINT extends SQLTypes.BIGINT {
+  export class BIGINT extends SQLTypes.BIGINT {
     constructor() {
       super();
     }
   }
 
-  export class PostgresFLOAT extends SQLTypes.FLOAT {
+  export class FLOAT extends SQLTypes.FLOAT {
     precision: number;
     constructor(l: number) {
       super();
@@ -183,31 +183,31 @@ export module PostgresTypes {
     }
   }
 
-  export class PostgresREAL extends SQLTypes.REAL {
+  export class REAL extends SQLTypes.REAL {
     constructor() {
       super();
     }
   }
 
-  export class PostgresDOUBLE_PRECISION extends SQLTypes.DOUBLE_PRECISION {
+  export class DOUBLE_PRECISION extends SQLTypes.DOUBLE_PRECISION {
     constructor() {
       super();
     }
   }
 
-  export class PostgresDATE extends SQLTypes.DATE {
+  export class DATE extends SQLTypes.DATE {
     constructor() {
       super();
     }
   }
 
-  export class PostgresTIME extends SQLTypes.TIME {
+  export class TIME extends SQLTypes.TIME {
     constructor() {
       super();
     }
   }
 
-  export class PostgresTIMESTAMP extends SQLTypes.TIMESTAMP {
+  export class TIMESTAMP extends SQLTypes.TIMESTAMP {
     tz: string | null;
     constructor(tz: string | null) {
       super();
@@ -227,7 +227,7 @@ export module PostgresTypes {
     }
   }
 
-  export class PostgresINTERVAL extends SQLTypes.INTERVAL {
+  export class INTERVAL extends SQLTypes.INTERVAL {
     from: string;
     to: string;
     constructor(from: string, to: string) {
@@ -243,13 +243,13 @@ export module PostgresTypes {
     }
   }
 
-  export class PostgresBOOLEAN extends SQLTypes.BOOLEAN {
+  export class BOOLEAN extends SQLTypes.BOOLEAN {
     constructor() {
       super();
     }
   }
 
-  export class PostgresXML extends SQLTypes.XML {
+  export class XML extends SQLTypes.XML {
     constructor() {
       super();
     }

@@ -62,7 +62,7 @@ it("Create generic table", () => {
     new StringType(len)
   );
 
-  class GenericConstraint extends RelationalContainer.Constraint {
+  class GenericUniqueConstraint extends RelationalContainer.UniqueConstraint {
     name: string;
     namespace: string;
     constructor(name: string, namespace: string) {
@@ -75,11 +75,11 @@ it("Create generic table", () => {
   class TestTable extends RelationalContainer.Table {
     name: string;
     columns: Array<StringCol>;
-    constraints: Array<GenericConstraint>;
+    constraints: Array<GenericUniqueConstraint>;
     constructor(
       name: string,
       columns: Array<StringCol>,
-      constraints: Array<GenericConstraint>
+      constraints: Array<GenericUniqueConstraint>
     ) {
       super();
       this.name = name;

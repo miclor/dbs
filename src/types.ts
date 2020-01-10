@@ -9,7 +9,7 @@ export module Domains {
 }
 
 export module SQLTypes {
-  export interface TypeFactory {
+  export interface SQLTypeFactory {
     createChar(len: number): CHAR;
     createVarchar(len: number): VARCHAR;
     createClob(): CLOB;
@@ -32,9 +32,9 @@ export module SQLTypes {
     createXML(): XML;
   }
 
-  export abstract class SQLType extends Domains.GenericDomain {}
+  export type SQLType = CHAR | VARCHAR | CLOB | BINARY | VARBINARY | BLOB | NUMERIC | DECIMAL | SMALLINT | INTEGER | BIGINT | FLOAT | REAL | DOUBLE_PRECISION | DATE | TIME |TIMESTAMP | INTERVAL | BOOLEAN | XML;
 
-  export abstract class CHAR extends SQLType {
+  export abstract class CHAR {
     abstract length: number;
     abstract getLength(): number;
   }
