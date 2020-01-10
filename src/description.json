@@ -1,0 +1,13 @@
+
+{
+    "object" : {"type": "table", "name": "table_name", "context": "schema_name"},
+    "desired_state": {
+        "name": "table_name",
+        "schema": "schema_name",
+        "tablespace": "tablespace_name",
+        "columns": [
+            {"name": "col1", "type": "varchar", "length": 20 },
+            {"name": "col2", "type": "numeric", "scale": 1, "precision": 2 }
+        ]    
+    }
+}
