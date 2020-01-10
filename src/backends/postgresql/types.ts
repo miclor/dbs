@@ -2,64 +2,64 @@ import { SQLTypes } from "../../types";
 
 export module PostgresTypes {
   export class PostgresTypeFactory implements SQLTypes.SQLTypeFactory {
-    public createChar(len: number): SQLTypes.CHAR {
+    public char(len: number): SQLTypes.CHAR {
       return new CHAR(len);
     }
-    public createVarchar(len: number): SQLTypes.VARCHAR {
+    public varchar(len: number): SQLTypes.VARCHAR {
       return new VARCHAR(len);
     }
-    public createClob(): SQLTypes.CLOB {
+    public clob(): SQLTypes.CLOB {
       return new CLOB();
     }
-    public createBinary(precision: number): SQLTypes.BINARY {
+    public binary(precision: number): SQLTypes.BINARY {
       return new BINARY(precision);
     }
-    public createVarbinary(precision: number): SQLTypes.VARBINARY {
+    public varbinary(precision: number): SQLTypes.VARBINARY {
       return new VARBINARY(precision);
     }
-    public createBlob(): SQLTypes.BLOB {
+    public blob(): SQLTypes.BLOB {
       return new BLOB();
     }
-    public createNumeric(precision: number, scale: number): SQLTypes.NUMERIC {
+    public numeric(precision: number, scale: number): SQLTypes.NUMERIC {
       return new NUMERIC(precision, scale);
     }
-    public createDecimal(precision: number, scale: number): SQLTypes.DECIMAL {
+    public decimal(precision: number, scale: number): SQLTypes.DECIMAL {
       return new DECIMAL(precision, scale);
     }
-    public createSmallInt(): SQLTypes.SMALLINT {
+    public smallInt(): SQLTypes.SMALLINT {
       return new SMALLINT();
     }
-    public createIntger(): SQLTypes.INTEGER {
+    public integer(): SQLTypes.INTEGER {
       return new INTEGER();
     }
-    public createBigInt(): SQLTypes.BIGINT {
+    public bigInt(): SQLTypes.BIGINT {
       return new BIGINT();
     }
-    public createFloat(precision: number): SQLTypes.FLOAT {
+    public float(precision: number): SQLTypes.FLOAT {
       return new FLOAT(precision);
     }
-    public createReal(): SQLTypes.REAL {
+    public real(): SQLTypes.REAL {
       return new REAL();
     }
-    public createDoublePrecision(): SQLTypes.DOUBLE_PRECISION {
+    public doublePrecision(): SQLTypes.DOUBLE_PRECISION {
       return new DOUBLE_PRECISION();
     }
-    public createDate(): SQLTypes.DATE {
+    public date(): SQLTypes.DATE {
       return new DATE();
     }
-    public createTime(): SQLTypes.TIME {
+    public time(): SQLTypes.TIME {
       return new TIME();
     }
-    public createTimeStamp(tz: string): SQLTypes.TIMESTAMP {
+    public timeStamp(tz: string): SQLTypes.TIMESTAMP {
       return new TIMESTAMP(tz);
     }
-    public createInterval(from: string, to: string): SQLTypes.INTERVAL {
+    public interval(from: string, to: string): SQLTypes.INTERVAL {
       return new INTERVAL(from, to);
     }
-    public createBoolean(): SQLTypes.BOOLEAN {
+    public boolean(): SQLTypes.BOOLEAN {
       return new BOOLEAN();
     }
-    public createXML(): SQLTypes.XML {
+    public xml(): SQLTypes.XML {
       return new XML();
     }
   }

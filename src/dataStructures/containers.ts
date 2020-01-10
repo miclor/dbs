@@ -38,8 +38,14 @@ export module RelationalContainer {
     abstract constraints: Array<Constraint>;
   }
 
-  export interface TableFactory {
-    createTable(name: string, columns: Array<Column>, constraints:Array<Constraint>) : Table
+  export interface RelationalFactory {
+    table(name: string, columns: Array<Column>, constraints:Array<Constraint>) : Table
+    column(name:string, type: SQLTypes.SQLType) : Column
+    uniqueConstraint(name: string, namespace: string): UniqueConstraint
+    primaryKeyConstraint(name: string, namespace: string): PrimaryKeyConstraint
+    foreignKeyConstraint(name: string, namespace: string): ForeignKeyConstraint
+    notNullConstraint(name: string, namespace: string): NotNullConstraint
+    checkConstraint(name: string, namespace: string): CheckConstraint    
   }
 
 }

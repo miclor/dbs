@@ -10,26 +10,26 @@ export module Domains {
 
 export module SQLTypes {
   export interface SQLTypeFactory {
-    createChar(len: number): CHAR;
-    createVarchar(len: number): VARCHAR;
-    createClob(): CLOB;
-    createBinary(precision: number): BINARY;
-    createVarbinary(precision: number): VARBINARY;
-    createBlob(): BLOB;
-    createNumeric(precision: number, scale: number): NUMERIC;
-    createDecimal(precision: number, scale: number): DECIMAL;
-    createSmallInt(): SMALLINT;
-    createIntger(): INTEGER;
-    createBigInt(): BIGINT;
-    createFloat(precision: number): FLOAT;
-    createReal(): REAL;
-    createDoublePrecision(): DOUBLE_PRECISION;
-    createDate(): DATE;
-    createTime(): TIME;
-    createTimeStamp(tz: string): TIMESTAMP;
-    createInterval(from: string, to: string): INTERVAL;
-    createBoolean(): BOOLEAN;
-    createXML(): XML;
+    char(len: number): CHAR;
+    varchar(len: number): VARCHAR;
+    clob(): CLOB;
+    binary(precision: number): BINARY;
+    varbinary(precision: number): VARBINARY;
+    blob(): BLOB;
+    numeric(precision: number, scale: number): NUMERIC;
+    decimal(precision: number, scale: number): DECIMAL;
+    smallInt(): SMALLINT;
+    integer(): INTEGER;
+    bigInt(): BIGINT;
+    float(precision: number): FLOAT;
+    real(): REAL;
+    doublePrecision(): DOUBLE_PRECISION;
+    date(): DATE;
+    time(): TIME;
+    timeStamp(tz: string): TIMESTAMP;
+    interval(from: string, to: string): INTERVAL;
+    boolean(): BOOLEAN;
+    xml(): XML;
   }
 
   export type SQLType = CHAR | VARCHAR | CLOB | BINARY | VARBINARY | BLOB | NUMERIC | DECIMAL | SMALLINT | INTEGER | BIGINT | FLOAT | REAL | DOUBLE_PRECISION | DATE | TIME |TIMESTAMP | INTERVAL | BOOLEAN | XML;
