@@ -40,8 +40,32 @@ export class CreateChange {
         let result = "CREATE SEQUENCE " + view_name;                
         return new CreateViewStatement(result);
     };
+
     createIndex(index_name: string): CreateIndexStatement { 
         let result = "CREATE SEQUENCE " + index_name;        
+        return new CreateSequenceStatement(result);        
+    };
+
+}
+
+export class AlterChange {
+
+    alterTable(table_name: string): AlterTableStatement {
+        let result = "ALTER TABLE " + table_name;
+        return new CreateTableStatement(result);
+    };
+    alterSequence(sequence_name: string): AlterSequenceStatement { 
+        let result = "ALTER SEQUENCE " + sequence_name;        
+        return new CreateSequenceStatement(result);
+    };
+
+    alterView(view_name: string): AlterViewStatement { 
+        let result = "ALTER SEQUENCE " + view_name;                
+        return new CreateViewStatement(result);
+    };
+    
+    alterIndex(index_name: string): AlterIndexStatement { 
+        let result = "ALTER SEQUENCE " + index_name;        
         return new CreateSequenceStatement(result);        
     };
 
