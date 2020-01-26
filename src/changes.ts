@@ -1,73 +1,53 @@
+import { RelationalContainer } from "../src/dataStructures/containers";
+import { SQLTypes } from "../src/types";
 
-
-class CreateTableStatement{
-    text: string
-    constructor(text: string) {
-        this.text = text;
-    }
-};
-class CreateSequenceStatement{
-    text: string
-    constructor(text: string) {
-        this.text = text;
-    }
-};
-class CreateViewStatement{
-    text: string
-    constructor(text: string) {
-        this.text = text;
-    }
-};
-class CreateIndexStatement{
-    text: string
-    constructor(text: string) {
-        this.text = text;
-    }
-};
+export function concatColumnArray(theList: Array<string>) {
+  let result: string = "";
+  for (let chunk of theList) {
+    result = result + chunk + ", ";
+  }
+  return result.slice(0, -2);
+}
 
 export class CreateChange {
+  createTable(table: RelationalContainer.Table): string {
+    let result: string = "";
+    return result;
+  }
 
-    createTable(table_name: string): CreateTableStatement {
-        let result = "CREATE TABLE " + table_name;
-        return new CreateTableStatement(result);
-    };
-    createSequence(sequence_name: string): CreateSequenceStatement { 
-        let result = "CREATE SEQUENCE " + sequence_name;        
-        return new CreateSequenceStatement(result);
-    };
+  createSequence(sequence_name: string): string {
+    let result = "CREATE SEQUENCE " + sequence_name;
+    return result;
+  }
 
-    createView(view_name: string): CreateViewStatement { 
-        let result = "CREATE SEQUENCE " + view_name;                
-        return new CreateViewStatement(result);
-    };
+  createView(view_name: string): string {
+    let result = "CREATE SEQUENCE " + view_name;
+    return result;
+  }
 
-    createIndex(index_name: string): CreateIndexStatement { 
-        let result = "CREATE SEQUENCE " + index_name;        
-        return new CreateSequenceStatement(result);        
-    };
-
+  createIndex(index_name: string): string {
+    let result = "CREATE SEQUENCE " + index_name;
+    return result;
+  }
 }
 
 export class AlterChange {
+  alterTable(table_name: string): string {
+    let result = "ALTER TABLE " + table_name;
+    return result;
+  }
+  alterSequence(sequence_name: string): string {
+    let result = "ALTER SEQUENCE " + sequence_name;
+    return result;
+  }
 
-    alterTable(table_name: string): AlterTableStatement {
-        let result = "ALTER TABLE " + table_name;
-        return new CreateTableStatement(result);
-    };
-    alterSequence(sequence_name: string): AlterSequenceStatement { 
-        let result = "ALTER SEQUENCE " + sequence_name;        
-        return new CreateSequenceStatement(result);
-    };
+  alterView(view_name: string): string {
+    let result = "ALTER SEQUENCE " + view_name;
+    return result;
+  }
 
-    alterView(view_name: string): AlterViewStatement { 
-        let result = "ALTER SEQUENCE " + view_name;                
-        return new CreateViewStatement(result);
-    };
-    
-    alterIndex(index_name: string): AlterIndexStatement { 
-        let result = "ALTER SEQUENCE " + index_name;        
-        return new CreateSequenceStatement(result);        
-    };
-
+  alterIndex(index_name: string): string {
+    let result = "ALTER SEQUENCE " + index_name;
+    return result;
+  }
 }
-
