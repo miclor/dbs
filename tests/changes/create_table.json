@@ -1,0 +1,20 @@
+{
+  "change_type": "create",
+  "object_type": "table",
+  "parameters": {
+    "name": "example_table",
+    "columns": [
+      {
+        "name": "col1",
+        "type": "varchar",
+        "length": 200
+      },
+      {
+        "name": "col1",
+        "type": "numeric",
+        "precision": 1,
+        "scale": 2
+      }
+    ]
+  }
+}

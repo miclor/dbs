@@ -1,0 +1,8 @@
+{
+  "change_type": "delete",
+  "object_type": "column",
+  "parameters": {
+    "table_name": "example_table",
+    "name": "col1"
+  }
+}

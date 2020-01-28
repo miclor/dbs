@@ -1,0 +1,10 @@
+{
+  "change_type": "modify",
+  "object_type": "column",
+  "parameters": {
+    "table_name": "example_table",
+    "attribute": "name",
+    "existing_value": "col1",
+    "desired_value": "col2"
+  }
+}

@@ -57,15 +57,15 @@ it("Create create table statement", () => {
     }
   }
 
-  let testTableInstance = new TestTable(
+  const testTableInstance = new TestTable(
     "SomeTestTable",
     [stringColInstance],
     []
   );
 
-  let result: string = new CreateChange().createTable(testTableInstance);
+  const result: string = new CreateChange().createTable(testTableInstance);
 
-  let expected_result: string =
+  const expected_result: string =
     "CREATE TABLE schemaName1.tableName1 (col1 varchar(20), col2 numeric(1,2))";
 
   expect(result).toBe(expected_result);
