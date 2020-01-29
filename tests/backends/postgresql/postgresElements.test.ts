@@ -1,10 +1,10 @@
-import { PostgresTypes } from "../../../src/backends/postgresql/postgresTypes";
+// import { PostgresTypes } from "../../../src/backends/postgresql/postgresTypes";
 import { PostgresElements } from "../../../src/backends/postgresql/postgresElements";
 
 
 it("Create PostgreSQL table", () => {
 
-  let pg_type_fac = new PostgresTypes.PostgresTypeFactory();
+  // let pg_type_fac = new PostgresTypes.PostgresTypeFactory();
   let pg_fac = new PostgresElements.PostgresElementFactory();
 
   let col1 = pg_fac.makeColumn("Col1", pg_type_fac.varchar(20))
