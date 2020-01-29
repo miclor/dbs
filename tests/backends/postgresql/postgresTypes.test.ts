@@ -1,4 +1,4 @@
-import { PostgresTypes } from "../../../src/backends/postgresql/types";
+import { PostgresTypes } from "../../../src/backends/postgresql/postgresTypes";
 
 it("Create PostgreSQL char type", () => {
   let len: number = 20;

@@ -1,6 +1,7 @@
-import { SQLTypes } from "../../types";
+import { SQLTypes } from "../../SQLTypes";
 
 export module PostgresTypes {
+
   export class PostgresTypeFactory implements SQLTypes.SQLTypeFactory {
     public char(len: number): SQLTypes.CHAR {
       return new CHAR(len);
@@ -64,7 +65,7 @@ export module PostgresTypes {
     }
   }
 
-  export type Type = CHAR | VARCHAR | CLOB | BINARY | VARBINARY | BLOB | NUMERIC | DECIMAL | SMALLINT | INTEGER | BIGINT | FLOAT | REAL | DOUBLE_PRECISION | DATE | TIME |TIMESTAMP | INTERVAL | BOOLEAN | XML;
+  export type Type = CHAR | VARCHAR | CLOB | BINARY | VARBINARY | BLOB | NUMERIC | DECIMAL | SMALLINT | INTEGER | BIGINT | FLOAT | REAL | DOUBLE_PRECISION | DATE | TIME | TIMESTAMP | INTERVAL | BOOLEAN | XML;
 
   export class CHAR extends SQLTypes.CHAR {
     length: number;

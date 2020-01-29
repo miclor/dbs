@@ -2,10 +2,10 @@
 
 // generic domains
 export module Domains {
-  export abstract class GenericDomain {}
-  export abstract class StringDomain extends GenericDomain {}
-  export abstract class IntegerDomain extends GenericDomain {}
-  export abstract class FloatDomain extends GenericDomain {}
+  export abstract class GenericDomain { }
+  export abstract class StringDomain extends GenericDomain { }
+  export abstract class IntegerDomain extends GenericDomain { }
+  export abstract class FloatDomain extends GenericDomain { }
 }
 
 export module SQLTypes {
@@ -32,7 +32,7 @@ export module SQLTypes {
     xml(): XML;
   }
 
-  export type SQLType = CHAR | VARCHAR | CLOB | BINARY | VARBINARY | BLOB | NUMERIC | DECIMAL | SMALLINT | INTEGER | BIGINT | FLOAT | REAL | DOUBLE_PRECISION | DATE | TIME |TIMESTAMP | INTERVAL | BOOLEAN | XML;
+  export type SQLType = CHAR | VARCHAR | CLOB | BINARY | VARBINARY | BLOB | NUMERIC | DECIMAL | SMALLINT | INTEGER | BIGINT | FLOAT | REAL | DOUBLE_PRECISION | DATE | TIME | TIMESTAMP | INTERVAL | BOOLEAN | XML;
 
   export abstract class CHAR {
     abstract length: number;
@@ -44,7 +44,7 @@ export module SQLTypes {
     abstract getLength(): number;
   }
 
-  export abstract class CLOB {}
+  export abstract class CLOB { }
 
   export abstract class BINARY {
     abstract length: number;
@@ -55,7 +55,7 @@ export module SQLTypes {
     abstract length: number;
     abstract getLength(): number;
   }
-  export abstract class BLOB {}
+  export abstract class BLOB { }
 
   export abstract class NUMERIC {
     abstract precision: number;
@@ -71,24 +71,24 @@ export module SQLTypes {
     abstract getScale(): number;
   }
 
-  export abstract class SMALLINT {}
+  export abstract class SMALLINT { }
 
-  export abstract class BIGINT {}
+  export abstract class BIGINT { }
 
-  export abstract class INTEGER {}
+  export abstract class INTEGER { }
 
   export abstract class FLOAT {
     abstract precision: number;
     abstract getPrecision(): number;
   }
 
-  export abstract class REAL {}
+  export abstract class REAL { }
 
-  export abstract class DOUBLE_PRECISION {}
+  export abstract class DOUBLE_PRECISION { }
 
-  export abstract class DATE {}
+  export abstract class DATE { }
 
-  export abstract class TIME {}
+  export abstract class TIME { }
 
   export abstract class TIMESTAMP {
     abstract tz: string | null;
@@ -102,7 +102,7 @@ export module SQLTypes {
     abstract getTo(): string;
   }
 
-  export abstract class BOOLEAN {}
+  export abstract class BOOLEAN { }
 
-  export abstract class XML {}
+  export abstract class XML { }
 }
