@@ -1,8 +1,8 @@
-import { RelationalContainer } from "../../src/dataStructures/containers";
-import { SQLTypes } from "../../src/types";
+import { RelationalElements } from "../../src/dataStructures/relationalElements";
+import { SQLTypes } from "../../src/SQLTypes";
 
 it("Create generic string column", () => {
-  class StringCol extends RelationalContainer.Column {
+  class StringCol extends RelationalElements.Column {
     constructor(name: string, type: SQLTypes.VARCHAR) {
       super();
       this.name = name;
@@ -30,11 +30,11 @@ it("Create generic string column", () => {
     new StringType(len)
   );
 
-  expect(string_col_instance instanceof RelationalContainer.Column).toBe(true);
+  expect(string_col_instance instanceof RelationalElements.Column).toBe(true);
 });
 
 it("Create generic table", () => {
-  class StringCol extends RelationalContainer.Column {
+  class StringCol extends RelationalElements.Column {
     constructor(name: string, type: SQLTypes.VARCHAR) {
       super();
       this.name = name;
@@ -62,7 +62,7 @@ it("Create generic table", () => {
     new StringType(len)
   );
 
-  class GenericUniqueConstraint extends RelationalContainer.UniqueConstraint {
+  class GenericUniqueConstraint extends RelationalElements.UniqueConstraint {
     name: string;
     namespace: string;
     constructor(name: string, namespace: string) {
@@ -72,7 +72,7 @@ it("Create generic table", () => {
     }
   }
 
-  class TestTable extends RelationalContainer.Table {
+  class TestTable extends RelationalElements.Table {
     name: string;
     columns: Array<StringCol>;
     constraints: Array<GenericUniqueConstraint>;
@@ -94,5 +94,5 @@ it("Create generic table", () => {
     []
   );
 
-  expect(testTableInstance instanceof RelationalContainer.Table).toBe(true);
+  expect(testTableInstance instanceof RelationalElements.Table).toBe(true);
 });
