@@ -98,6 +98,7 @@ export class NotNullConstraint extends RelationalElements.NotNullConstraint {
     this.namespace = namespace;
   }
 }
+
 export class CheckConstraint extends RelationalElements.CheckConstraint {
   name: string;
   namespace: string;

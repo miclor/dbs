@@ -41,7 +41,7 @@ export module RelationalElements {
 
 
   export interface RelationalElementFactory {
-    makeColumn(name: string, type: string, length?: number, scale?: number, precision?: number): RelationalElements.Column;
+    //makeColumn(name: string, type: string, length?: number, scale?: number, precision?: number): RelationalElements.Column;
     makeUniqueConstraint(name: string, namespace: string): RelationalElements.UniqueConstraint;
     makePrimaryKeyConstraint(name: string, namespace: string): RelationalElements.PrimaryKeyConstraint;
     makeForeignKeyConstraint(name: string, namespace: string): RelationalElements.ForeignKeyConstraint;
