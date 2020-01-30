@@ -19,7 +19,8 @@ import {
   INTERVAL,
   BOOLEAN,
   XML,
-  Type
+  Type,
+  PostgresTypeFactory
 } from "./postgresTypes";
 
 export {
@@ -142,50 +143,54 @@ export class PostgresElementFactory
     return new Table(name, columns, constraints);
   }
 
-  // makeColumn(
-  //   name: string,
-  //   type: string,
-  //   length?: number,
-  //   scale?: number,
-  //   precision?: number
-  // ): RelationalElements.Column {
-  //   let postgresTypeFactory = new PostgresTypes.PostgresTypeFactory();
+  makeColumn(
+    name: string,
+    type: string,
+    length?: number,
+    scale?: number,
+    precision?: number
+  ): RelationalElements.Column {
 
-  //   const typeAttribute = Reflect.get(postgresTypeFactory, type);
 
-  //   if (typeAttribute !== null) {
-  //     postgresTypeFactory[typeAttribute]();
-  //   }
 
-  //   switch (type) {
-  //     case "":
-  //         console.log("It is a Sunday.");
-  //         break;
-  //     case 1:
-  //         console.log("It is a Monday.");
-  //         break;
-  //     case 2:
-  //         console.log("It is a Tuesday.");
-  //         break;
-  //     case 3:
-  //         console.log("It is a Wednesday.");
-  //         break;
-  //     case 4:
-  //         console.log("It is a Thursday.");
-  //         break;
-  //     case 5:
-  //         console.log("It is a Friday.");
-  //         break;
-  //     case 6:
-  //         console.log("It is a Saturday.");
-  //         break;
-  //     default:
-  //         console.log("No such day exists!");
-  //         break;
-  // }
 
-  //   return new Column(name, type);
-  // }
+    //let postgresTypeFactory = new PostgresTypeFactory();
+
+    // const typeAttribute = Reflect.get(postgresTypeFactory, type);
+
+
+    //let array = Object.getOwnPropertyNames(postgresTypeFactory);
+    // let _array: string[] = Object.keys(new PostgresTypeFactory())
+
+    // console.log("the array->", _array);
+
+    // if (typeAttribute !== null) {
+    //   postgresTypeFactory[typeAttribute]();
+    // }
+
+    // CHAR | VARCHAR | CLOB | BINARY | VARBINARY | BLOB | NUMERIC | DECIMAL | SMALLINT | INTEGER | BIGINT | FLOAT | REAL | DOUBLE_PRECISION | DATE | TIME | TIMESTAMP | INTERVAL | BOOLEAN | XML;
+
+    switch (type) {
+      case "CHAR":
+        if (length) {
+          return new Column(name, new CHAR(length));
+        }
+        break;
+      case "VARCHAR":
+        if (length) {
+          return new Column(name, new VARCHAR(length));
+        }
+        break;
+      case "CLOB":
+
+        return new Column(name, new BLOB());
+        break;
+      default:
+        console.log("No such day exists!");
+        break;
+    }
+    throw new TypeError();
+  }
 
   makeUniqueConstraint(
     name: string,
