@@ -148,27 +148,12 @@ export class PostgresElementFactory
     type: string,
     length?: number,
     scale?: number,
-    precision?: number
+    precision?: number,
+    tz?: string,
+    from?: string,
+    to?: string
   ): RelationalElements.Column {
 
-
-
-
-    //let postgresTypeFactory = new PostgresTypeFactory();
-
-    // const typeAttribute = Reflect.get(postgresTypeFactory, type);
-
-
-    //let array = Object.getOwnPropertyNames(postgresTypeFactory);
-    // let _array: string[] = Object.keys(new PostgresTypeFactory())
-
-    // console.log("the array->", _array);
-
-    // if (typeAttribute !== null) {
-    //   postgresTypeFactory[typeAttribute]();
-    // }
-
-    // CHAR | VARCHAR | CLOB | BINARY | VARBINARY | BLOB | NUMERIC | DECIMAL | SMALLINT | INTEGER | BIGINT | FLOAT | REAL | DOUBLE_PRECISION | DATE | TIME | TIMESTAMP | INTERVAL | BOOLEAN | XML;
 
     switch (type) {
       case "CHAR":
@@ -182,9 +167,63 @@ export class PostgresElementFactory
         }
         break;
       case "CLOB":
-
         return new Column(name, new BLOB());
+      case "BINARY":
+        if (length) {
+          return new Column(name, new BINARY(length));
+        }
+        break
+      case "VARBINARY":
+        if (length) {
+          return new Column(name, new VARBINARY(length));
+        }
         break;
+      case "BLOB":
+        return new Column(name, new BLOB());
+      case "NUMERIC":
+        if (precision && scale) {
+          return new Column(name, new NUMERIC(precision, scale));
+        }
+        break;
+      case "SMALLINT":
+        return new Column(name, new SMALLINT());
+      case "INTEGER":
+        return new Column(name, new INTEGER());
+      case "BIGINT":
+        return new Column(name, new BIGINT());
+      case "FLOAT":
+        if (precision) {
+          return new Column(name, new FLOAT(precision));
+        }
+        break;
+      case "REAL":
+        return new Column(name, new REAL());
+
+      case "DOUBLE_PRECISION":
+        return new Column(name, new DOUBLE_PRECISION());
+
+      case "DATE":
+        if (precision && scale) {
+          return new Column(name, new DATE());
+        }
+        break;
+      case "TIME":
+        return new Column(name, new TIME());
+      case "TIMESTAMP":
+        if (tz) {
+          return new Column(name, new TIMESTAMP(tz));
+        }
+        break;
+      case "INTERVAL":
+        if (from && to) {
+          return new Column(name, new INTERVAL(from, to));
+        }
+        break;
+      case "BOOLEAN":
+        return new Column(name, new BOOLEAN());
+      case "XML":
+        return new Column(name, new XML());
+
       default:
         console.log("No such day exists!");
         break;
