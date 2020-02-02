@@ -151,17 +151,83 @@ it("Create columns of XML", () => {
   expect(col.type instanceof XML).toBe(true);
 });
 
+// constraints
+it("Create primary key constraint", () => {
+  const col1 = new Column("Col1", new VARCHAR(20));
+  const col2 = new Column("Col2", new VARCHAR(20));
+  const testTable = new Table("TestTable", [col1, col2], []);
+  const con = new PrimaryKeyConstraint("pk1", testTable, [col1]);
+  expect(con instanceof PrimaryKeyConstraint).toBe(true);
+});
+
+it("Create foreign key constraint", () => {
+  const col1 = new Column("Col1", new VARCHAR(20));
+  const col2 = new Column("Col2", new VARCHAR(20));
+  const testTable1 = new Table("TestTable", [col1, col2], []);
+  const con1 = new PrimaryKeyConstraint("pk1", testTable1, [col1]);
+
+  const col3 = new Column("Col1", new VARCHAR(20));
+  const col4 = new Column("Col2", new VARCHAR(20));
+  const testTable2 = new Table("TestTable", [col3, col4], []);
+  const con2 = new PrimaryKeyConstraint("pk1", testTable2, [col3]);
+
+  const fk = new ForeignKeyConstraint(
+    "fk1",
+    testTable1,
+    [col1],
+    testTable2,
+    [col3],
+    "CASCADE",
+    "CASCADE"
+  );
+  expect(fk instanceof ForeignKeyConstraint).toBe(true);
+});
+
+it("Create unique constraint", () => {
+  const col1 = new Column("Col1", new VARCHAR(20));
+  const col2 = new Column("Col2", new VARCHAR(20));
+  const testTable = new Table("TestTable", [col1, col2], []);
+  const con = new UniqueConstraint("pk1", testTable, col1);
+  expect(con instanceof UniqueConstraint).toBe(true);
+});
+
+it("Create not null constraint", () => {
+  const col1 = new Column("Col1", new VARCHAR(20));
+  const col2 = new Column("Col2", new VARCHAR(20));
+  const testTable = new Table("TestTable", [col1, col2], []);
+  const con = new NotNullConstraint("pk1", testTable, col1);
+  expect(con instanceof NotNullConstraint).toBe(true);
+});
+
+it("Create check constraint", () => {
+  const col1 = new Column("Col1", new VARCHAR(20));
+  const col2 = new Column("Col2", new VARCHAR(20));
+  const testTable = new Table("TestTable", [col1, col2], []);
+  const con = new CheckConstraint("pk1", testTable, col1, " != 'foo' ");
+  expect(con instanceof CheckConstraint).toBe(true);
+});
+
 // tables
 it("Create PostgreSQL table", () => {
   const col1 = new Column("Col1", new VARCHAR(20));
   const col2 = new Column("Col2", new VARCHAR(20));
-  const pkConstraint = new PrimaryKeyConstraint("PK1", "namespace");
-  const uConstraint = new UniqueConstraint("uk1", "namespace");
-  const nnConstraint = new NotNullConstraint("nn1", "namespace");
+  const pk = new PrimaryKeyConstraint("pk1", "tableName1", "schema1", ["col1"]);
+  const uConstraint = new UniqueConstraint(
+    "uk1",
+    "tableName1",
+    "schema",
+    "someColumn"
+  );
+  const nnConstraint = new NotNullConstraint(
+    "uk1",
+    "tableName1",
+    "schema",
+    "someColumn"
+  );
   const test_table = new Table(
     "TestTable",
     [col1, col2],
-    [pkConstraint, uConstraint, nnConstraint]
+    [pk, uConstraint, nnConstraint]
   );
 
   expect(test_table instanceof Table).toBe(true);
@@ -170,14 +236,10 @@ it("Create PostgreSQL table", () => {
 it("Create two PG tables with all kinds of constraints", () => {
   const col1 = new Column("Col1", new VARCHAR(20));
   const col2 = new Column("Col2", new VARCHAR(20));
-  const pkConstraint = new PrimaryKeyConstraint("PK1", "namespace");
-  const uConstraint = new UniqueConstraint("uk1", "namespace");
-  const nnConstraint = new NotNullConstraint("nn1", "namespace");
-  const test_table = new Table(
-    "TestTable",
-    [col1, col2],
-    [pkConstraint, uConstraint, nnConstraint]
-  );
+  const testTable = new Table("TestTable", [col1, col2], []);
+  const pkConstraint = new PrimaryKeyConstraint("PK1", testTable, [col1]);
+  const uConstraint = new UniqueConstraint("uk1", testTable, col2);
+  const nnConstraint = new NotNullConstraint("nn1", testTable, col2);
 
   const col12 = new Column("Col1", new VARCHAR(20));
   const col22 = new Column("Col2", new VARCHAR(20));
@@ -185,6 +247,7 @@ it("Create two PG tables with all kinds of constraints", () => {
   const col3 = new Column("Col3", "VARCHAR", 20);
   const col4 = new Column("Col3", "VARCHAR", 20);
 
+  // idea: use static method to add constraints to tables: table1.add_pk(new PrimaryConstraint(...))
   const pkConstraint2 = new PrimaryKeyConstraint("PK1", "namespace");
   const uConstraint2 = new UniqueConstraint("uk1", "namespace");
   const nnConstraint2 = new NotNullConstraint("nn1", "namespace");

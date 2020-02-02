@@ -19,8 +19,7 @@ import {
   INTERVAL,
   BOOLEAN,
   XML,
-  Type,
-  PostgresTypeFactory
+  Type
 } from "./postgresTypes";
 
 export {
@@ -72,51 +71,85 @@ export class Column extends RelationalElements.Column {
 
 export class UniqueConstraint extends RelationalElements.UniqueConstraint {
   name: string;
-  namespace: string;
-  constructor(name: string, namespace: string) {
+  table: Table;
+  column: Column;
+  constructor(name: string, table: Table, column: Column) {
     super();
     this.name = name;
-    this.namespace = namespace;
+    this.table = table;
+    this.column = column;
   }
 }
 
 export class PrimaryKeyConstraint extends RelationalElements.PrimaryKeyConstraint {
   name: string;
-  namespace: string;
-  constructor(name: string, namespace: string) {
+  table: Table;
+  columns: [Column];
+  constructor(name: string, table: Table, columns: [Column]) {
     super();
     this.name = name;
-    this.namespace = namespace;
+    this.table = table;
+    this.columns = columns;
   }
 }
 
 export class ForeignKeyConstraint extends RelationalElements.ForeignKeyConstraint {
   name: string;
-  namespace: string;
-  constructor(name: string, namespace: string) {
+  table: Table;
+  columns: [Column];
+  referencedTable: Table;
+  referencedColumnNames: [Column];
+  onDelete: RelationalElements.OnDelete;
+  onUpdate: RelationalElements.OnDelete;
+
+  constructor(
+    name: string,
+    table: Table,
+    columns: [Column],
+    referencedTable: Table,
+    referencedColumns: [Column],
+    onDelete: RelationalElements.OnDelete,
+    onUpdate: RelationalElements.OnDelete
+  ) {
     super();
     this.name = name;
-    this.namespace = namespace;
+    this.table = table;
+    this.columns = columns;
+    this.referencedTable = referencedTable;
+    this.referencedColumnNames = referencedColumns;
+    this.onDelete = onDelete;
+    this.onUpdate = onUpdate;
   }
 }
 
 export class NotNullConstraint extends RelationalElements.NotNullConstraint {
   name: string;
-  namespace: string;
-  constructor(name: string, namespace: string) {
+  table: Table;
+  column: Column;
+  constructor(name: string, table: Table, column: Column) {
     super();
     this.name = name;
-    this.namespace = namespace;
+    this.table = table;
+    this.column = column;
   }
 }
 
 export class CheckConstraint extends RelationalElements.CheckConstraint {
   name: string;
-  namespace: string;
-  constructor(name: string, namespace: string) {
+  table: Table;
+  column: Column;
+  checkCondition: string;
+  constructor(
+    name: string,
+    table: Table,
+    column: Column,
+    checkCondition: string
+  ) {
     super();
     this.name = name;
-    this.namespace = namespace;
+    this.table = table;
+    this.column = column;
+    this.checkCondition = checkCondition;
   }
 }
 
@@ -361,33 +394,33 @@ export class SequenceBuilder {
 
 //   makeUniqueConstraint(
 //     name: string,
-//     namespace: string
+//     schema: string
 //   ): RelationalElements.UniqueConstraint {
-//     return new UniqueConstraint(name, namespace);
+//     return new UniqueConstraint(name, schema);
 //   }
 //   makePrimaryKeyConstraint(
 //     name: string,
-//     namespace: string
+//     schema: string
 //   ): RelationalElements.PrimaryKeyConstraint {
-//     return new PrimaryKeyConstraint(name, namespace);
+//     return new PrimaryKeyConstraint(name, schema);
 //   }
 //   makeForeignKeyConstraint(
 //     name: string,
-//     namespace: string
+//     schema: string
 //   ): RelationalElements.ForeignKeyConstraint {
-//     return new ForeignKeyConstraint(name, namespace);
+//     return new ForeignKeyConstraint(name, schema);
 //   }
 //   makeNotNullConstraint(
 //     name: string,
-//     namespace: string
+//     schema: string
 //   ): RelationalElements.NotNullConstraint {
-//     return new NotNullConstraint(name, namespace);
+//     return new NotNullConstraint(name, schema);
 //   }
 //   makeCheckConstraint(
 //     name: string,
-//     namespace: string
+//     schema: string
 //   ): RelationalElements.CheckConstraint {
-//     return new CheckConstraint(name, namespace);
+//     return new CheckConstraint(name, schema);
 //   }
 // }
 // //}
