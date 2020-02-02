@@ -211,26 +211,12 @@ it("Create check constraint", () => {
 it("Create PostgreSQL table", () => {
   const col1 = new Column("Col1", new VARCHAR(20));
   const col2 = new Column("Col2", new VARCHAR(20));
-  const pk = new PrimaryKeyConstraint("pk1", "tableName1", "schema1", ["col1"]);
-  const uConstraint = new UniqueConstraint(
-    "uk1",
-    "tableName1",
-    "schema",
-    "someColumn"
-  );
-  const nnConstraint = new NotNullConstraint(
-    "uk1",
-    "tableName1",
-    "schema",
-    "someColumn"
-  );
-  const test_table = new Table(
-    "TestTable",
-    [col1, col2],
-    [pk, uConstraint, nnConstraint]
-  );
+  const testTable = new Table("TestTable", [col1, col2], []);
+  const pk = new PrimaryKeyConstraint("pk1", testTable, [col1]);
+  const uConstraint = new UniqueConstraint("uk1", testTable, col2);
+  const nnConstraint = new NotNullConstraint("uk1", testTable, col2);
 
-  expect(test_table instanceof Table).toBe(true);
+  expect(testTable instanceof Table).toBe(true);
 });
 
 it("Create two PG tables with all kinds of constraints", () => {
@@ -245,24 +231,27 @@ it("Create two PG tables with all kinds of constraints", () => {
   const col22 = new Column("Col2", new VARCHAR(20));
 
   const col3 = new Column("Col3", "VARCHAR", 20);
-  const col4 = new Column("Col3", "VARCHAR", 20);
+  const col4 = new Column("Col4", "VARCHAR", 20);
 
-  // idea: use static method to add constraints to tables: table1.add_pk(new PrimaryConstraint(...))
-  const pkConstraint2 = new PrimaryKeyConstraint("PK1", "namespace");
-  const uConstraint2 = new UniqueConstraint("uk1", "namespace");
-  const nnConstraint2 = new NotNullConstraint("nn1", "namespace");
-  const checkConstraint = new CheckConstraint("cc1", "namespace");
+  const testTable2 = new Table("TestTable2", [col12, col22, col3, col4], []);
 
-  const fkContstraint = new ForeignKeyConstraint("fk_test", "namespace");
+  const pkConstraint2 = new PrimaryKeyConstraint("PK1", testTable2, [col1]);
+  const uConstraint2 = new UniqueConstraint("uk1", testTable2, col2);
+  const nnConstraint2 = new NotNullConstraint("nn1", testTable2, col2);
+  const checkConstraint = new CheckConstraint("cc1", testTable2, col2, " > 2");
 
-  const test_table2 = new Table(
-    "TestTable2",
-    [col12, col22, col3, col4],
-    [pkConstraint2, uConstraint2, nnConstraint2, checkConstraint, fkContstraint]
+  const fkContstraint = new ForeignKeyConstraint(
+    "fkTest",
+    testTable,
+    [col1],
+    testTable2,
+    [col1],
+    "CASCADE",
+    "CASCADE"
   );
 
-  expect(test_table instanceof Table).toBe(true);
-  expect(test_table2 instanceof Table).toBe(true);
+  expect(testTable instanceof Table).toBe(true);
+  expect(testTable2 instanceof Table).toBe(true);
 });
 
 // sequences
