@@ -67,6 +67,15 @@ export module RelationalElements {
     abstract cycle?: boolean;
   }
 
+  export abstract class View {
+    abstract name: string;
+    abstract columns?: Array<string>;
+    abstract query: string;
+    abstract checkOption?: ViewCheckOption;
+  }
+
+  export type ViewCheckOption = "LOCAL" | "CASCADE";
+
   // export interface RelationalElementFactory {
   //   //makeColumn(name: string, type: string, length?: number, scale?: number, precision?: number): RelationalElements.Column;
   //   makeUniqueConstraint(name: string, schema: string): RelationalElements.UniqueConstraint;

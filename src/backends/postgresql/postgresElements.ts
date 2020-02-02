@@ -176,6 +176,78 @@ export class Table extends RelationalElements.Table {
   }
 }
 
+export class View extends RelationalElements.View {
+  name: string;
+  columns?: Array<string>;
+  query: string;
+  checkOption?: RelationalElements.ViewCheckOption;
+  temp?: boolean;
+
+  constructor(
+    name: string,
+    query: string,
+    columns?: Array<string>,
+    checkOption?: RelationalElements.ViewCheckOption,
+    temp?: boolean
+  ) {
+    super();
+    this.name = name;
+    this.query = query;
+    this.columns = columns;
+    this.checkOption = checkOption;
+    this.temp = temp;
+  }
+}
+
+export class ViewBuilder {
+  name: string = "";
+  columns?: Array<string>;
+  query: string = "";
+  checkOption?: RelationalElements.ViewCheckOption;
+  temp?: boolean;
+
+  public static create(): ViewBuilder {
+    return new ViewBuilder();
+  }
+
+  public setName(name: string): ViewBuilder {
+    this.name = name;
+    return this;
+  }
+
+  public setTemp(temp: boolean): ViewBuilder {
+    this.temp = temp;
+    return this;
+  }
+
+  public setColumns(columns: Array<string>): ViewBuilder {
+    this.columns = columns;
+    return this;
+  }
+
+  public setQuery(query: string): ViewBuilder {
+    this.query = query;
+    return this;
+  }
+
+  public setCheckOption(
+    checkOption: RelationalElements.ViewCheckOption
+  ): ViewBuilder {
+    this.checkOption = checkOption;
+    return this;
+  }
+
+  public build(): View {
+    return new View(
+      this.name,
+      this.query,
+      this.columns,
+      this.checkOption,
+      this.temp
+    );
+  }
+}
+
 export class Sequence extends RelationalElements.Sequence {
   name: string;
   temp?: boolean;

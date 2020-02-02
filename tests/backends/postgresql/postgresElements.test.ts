@@ -27,7 +27,9 @@ import {
   BOOLEAN,
   XML,
   Sequence,
-  SequenceBuilder
+  SequenceBuilder,
+  View,
+  ViewBuilder
 } from "../../../src/backends/postgresql/postgresElements";
 
 it("Create columns of CHAR", () => {
@@ -215,7 +217,6 @@ it("Create PostgreSQL table", () => {
   const pk = new PrimaryKeyConstraint("pk1", testTable, [col1]);
   const uConstraint = new UniqueConstraint("uk1", testTable, col2);
   const nnConstraint = new NotNullConstraint("uk1", testTable, col2);
-
   expect(testTable instanceof Table).toBe(true);
 });
 
@@ -264,4 +265,15 @@ it("Create sequence with start 1", () => {
   expect(seq instanceof Sequence).toBe(true);
   expect(seq.name === "Seq1").toBe(true);
   expect(seq.maxvalue === 10).toBe(true);
+});
+
+// views
+it("Create view ", () => {
+  const view = ViewBuilder.create()
+    .setName("View1")
+    .setQuery("select foo from bar")
+    .build();
+  expect(view instanceof View).toBe(true);
+  expect(view.name === "View1").toBe(true);
+  expect(view.query === "select foo from bar").toBe(true);
 });
