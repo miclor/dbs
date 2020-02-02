@@ -151,18 +151,6 @@ it("Create columns of XML", () => {
   expect(col.type instanceof XML).toBe(true);
 });
 
-// sequences
-it("Create sequence with start 1", () => {
-  const seq = SequenceBuilder.create()
-    .setName("Seq1")
-    .setStart(1)
-    .setMaxvalue(10)
-    .build();
-  expect(seq instanceof Sequence).toBe(true);
-  expect(seq.name === "Seq1").toBe(true);
-  expect(seq.maxvalue === 10).toBe(true);
-});
-
 // tables
 it("Create PostgreSQL table", () => {
   const col1 = new Column("Col1", new VARCHAR(20));
@@ -212,4 +200,16 @@ it("Create two PG tables with all kinds of constraints", () => {
 
   expect(test_table instanceof Table).toBe(true);
   expect(test_table2 instanceof Table).toBe(true);
+});
+
+// sequences
+it("Create sequence with start 1", () => {
+  const seq = SequenceBuilder.create()
+    .setName("Seq1")
+    .setStart(1)
+    .setMaxvalue(10)
+    .build();
+  expect(seq instanceof Sequence).toBe(true);
+  expect(seq.name === "Seq1").toBe(true);
+  expect(seq.maxvalue === 10).toBe(true);
 });

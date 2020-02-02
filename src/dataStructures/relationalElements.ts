@@ -9,25 +9,43 @@ export module RelationalElements {
   export abstract class UniqueConstraint {
     abstract name: string;
     abstract namespace: string;
+    abstract tableName: string;
+    abstract columName: string;
   }
 
   export abstract class PrimaryKeyConstraint {
     abstract name: string;
     abstract namespace: string;
+    abstract tableName: string;
+    abstract columNames: [string];
   }
 
   export abstract class ForeignKeyConstraint {
     abstract name: string;
     abstract namespace: string;
+    abstract tableName: string; // use table instead?
+    abstract columNames: [string];
+    abstract referencedTable: string;
+    abstract referencedColumnNames: [string];
+    abstract onDelete: OnDelete;
+    abstract onUpdate: OnDelete;
   }
+
+  type OnDelete = "CASCADE" | "RESTRICT" | "SET NULL" | "SET DEFAULT";
 
   export abstract class NotNullConstraint {
     abstract name: string;
     abstract namespace: string;
+    abstract tableName: string;
+    abstract columName: string;
   }
+
   export abstract class CheckConstraint {
     abstract name: string;
     abstract namespace: string;
+    abstract tableName: string;
+    abstract columName: string;
+    abstract checkCondition: string;
   }
 
   export type Constraint =
