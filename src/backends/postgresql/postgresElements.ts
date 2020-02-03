@@ -164,15 +164,95 @@ export class Table extends RelationalElements.Table {
   name: string;
   columns: Array<Column>;
   constraints: Array<Constraint>;
+  temp?: boolean;
+  unlogged?: boolean;
+  ifNotExists?: boolean;
+  tablespace?: string;
+  indexTablespace?: string;
+
   constructor(
     name: string,
     columns: Array<Column>,
-    constraints: Array<Constraint>
+    constraints: Array<Constraint>,
+    temp?: boolean,
+    unlogged?: boolean,
+    ifNotExists?: boolean,
+    tablespace?: string,
+    indexTablespace?: string
   ) {
     super();
     this.name = name;
     this.columns = columns;
     this.constraints = constraints;
+    this.temp = temp;
+    this.unlogged = unlogged;
+    this.tablespace = tablespace;
+    this.indexTablespace = indexTablespace;
+  }
+}
+
+export class TableBuilder {
+  name: string = "";
+  schema?: string;
+  columns: Array<Column> = [];
+  constraints: Array<Constraint> = [];
+  temp?: boolean;
+  unlogged?: boolean;
+  ifNotExists?: boolean;
+  tablespace?: string;
+  indexTablespace?: string;
+
+  public static create(): TableBuilder {
+    return new TableBuilder();
+  }
+  public setName(name: string): TableBuilder {
+    this.name = name;
+    return this;
+  }
+  public setSchema(schema: string): TableBuilder {
+    this.schema = schema;
+    return this;
+  }
+  public setColumns(columns: Array<Column>): TableBuilder {
+    this.columns = columns;
+    return this;
+  }
+  public setConstraints(constraints: Array<Constraint>): TableBuilder {
+    this.constraints = constraints;
+    return this;
+  }
+  public setTemp(temp: boolean): TableBuilder {
+    this.temp = temp;
+    return this;
+  }
+  public setUnlogged(unlogged: boolean): TableBuilder {
+    this.unlogged = unlogged;
+    return this;
+  }
+  public setIfNotExists(ifNotExists: boolean): TableBuilder {
+    this.ifNotExists = ifNotExists;
+    return this;
+  }
+  public setTablespace(tablespace: string): TableBuilder {
+    this.tablespace = tablespace;
+    return this;
+  }
+  public setIndexTablespace(indexTablespace: string): TableBuilder {
+    this.indexTablespace = indexTablespace;
+    return this;
+  }
+
+  public build(): Table {
+    return new Table(
+      this.name,
+      this.columns,
+      this.constraints,
+      this.temp,
+      this.unlogged,
+      this.ifNotExists,
+      this.tablespace,
+      this.indexTablespace
+    );
   }
 }
 

@@ -54,6 +54,21 @@ export module RelationalElements {
     abstract name: string;
     abstract columns: Array<Column>;
     abstract constraints: Array<Constraint>;
+    abstract addPrimaryKeyConstaint(pk: PrimaryKeyConstraint): void;
+    abstract removePrimaryKeyConstraint(pk: PrimaryKeyConstraint): void;
+    abstract addUniqueConstraint(pk: PrimaryKeyConstraint): void;
+    abstract removeUniqueConstrtaint(pk: PrimaryKeyConstraint): void;
+    abstract addNotNullConstraint(pk: PrimaryKeyConstraint): void;
+    abstract removeNotNullConstraint(pk: PrimaryKeyConstraint): void;
+    abstract addCheckConstraint(pk: PrimaryKeyConstraint): void;
+    abstract removeCheckConstraint(pk: PrimaryKeyConstraint): void;
+    abstract addDefaultConstraint(pk: PrimaryKeyConstraint): void;
+    abstract removeDefaultConstraint(pk: PrimaryKeyConstraint): void;
+    abstract addForeignKeyConstraint(pk: PrimaryKeyConstraint): void;
+    abstract removeForeignKeyConstraint(pk: PrimaryKeyConstraint): void;
+
+    abstract addColumn(column: Column): void;
+    abstract removeColumn(column: Column): void;
   }
 
   export abstract class Sequence {
