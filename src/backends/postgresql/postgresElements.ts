@@ -189,7 +189,33 @@ export class Table extends RelationalElements.Table {
     this.tablespace = tablespace;
     this.indexTablespace = indexTablespace;
   }
+  public addPrimaryKeyConstaint(pk: PrimaryKeyConstraint): void { };
+  public getPrimaryKeyConstaint(): PrimaryKeyConstraint;
+  public removePrimaryKeyConstraint(pk: PrimaryKeyConstraint): void { };
 
+  public addUniqueConstraint(uk: UniqueConstraint): void { };
+  public getUniqueConstraint(column: Column): UniqueConstraint;
+  public removeUniqueConstrtaint(uk: UniqueConstraint): void { };
+
+  public addNotNullConstraint(nn: NotNullConstraint): void { };
+  public getNotNullConstraint(column: Column): NotNullConstraint;
+  public removeNotNullConstraint(nn: NotNullConstraint): void { };
+
+  public addCheckConstraint(cc: CheckConstraint): void { };
+  public getCheckConstraint(column: Column): CheckConstraint;
+  public removeCheckConstraint(cc: CheckConstraint): void { };
+
+  public addDefaultConstraint(dc: DefaultConstraint): void { };
+  public getDefaultConstraint(column: Column): DefaultConstraint;
+  public removeDefaultConstraint(dc: DefaultConstraint): void { };
+
+  public addForeignKeyConstraint(fk: ForeignKeyConstraint): void { };
+  public getForeignKeyConstraint(columns: [Column]): ForeignKeyConstraint;
+  public removeForeignKeyConstraint(fk: ForeignKeyConstraint): void { };
+
+  public addColumn(column: Column): void;
+  public getColumn(name: string): Column;
+  public removeColumn(column: Column): void;
 }
 
 export class TableBuilder {
