@@ -4,7 +4,6 @@ export module RelationalElements {
   export abstract class Column {
     abstract name: string;
     abstract type: SQLTypes.SQLType;
-
   }
 
   export abstract class UniqueConstraint {
@@ -48,7 +47,7 @@ export module RelationalElements {
     abstract name: string;
     abstract table: Table;
     abstract column: Column;
-    abstract defaultValue: SQLTypes.SQLType;
+    abstract defaultValue: string | number;
   }
 
   export type Constraint =
@@ -61,36 +60,201 @@ export module RelationalElements {
 
   export abstract class Table {
     abstract name: string;
+    abstract schema?: string;
     abstract columns: Array<Column>;
-    abstract constraints: Array<Constraint>;
+    abstract primaryKeyConstraint?: PrimaryKeyConstraint;
+    abstract uniqueConstraints?: Array<UniqueConstraint>;
+    abstract notNullConstraints?: Array<NotNullConstraint>;
+    abstract checkConstraints?: Array<CheckConstraint>;
+    abstract defaultConstraints?: Array<DefaultConstraint>;
+    abstract foreignKeyConstraints?: Array<ForeignKeyConstraint>;
 
-    abstract addPrimaryKeyConstaint(pk: PrimaryKeyConstraint): void;
-    abstract getPrimaryKeyConstaint(): PrimaryKeyConstraint;
-    abstract removePrimaryKeyConstraint(pk: PrimaryKeyConstraint): void;
+    // public addPrimaryKeyConstaint(pk: PrimaryKeyConstraint): Table;
+    // public getPrimaryKeyConstaint(): PrimaryKeyConstraint | undefined;
+    // public removePrimaryKeyConstraint(pk: PrimaryKeyConstraint): void;
+    public addPrimaryKeyConstraint(pk: PrimaryKeyConstraint): void {
+      if (this.primaryKeyConstraint) {
+        this.primaryKeyConstraint = pk;
+      }
+    }
+    public getPrimaryKeyConstraint(): PrimaryKeyConstraint | undefined {
+      if (this.primaryKeyConstraint) {
+        return this.primaryKeyConstraint;
+      } else {
+        return undefined;
+      }
+    }
+    public removePrimaryKeyConstraint(): void {
+      if (this.primaryKeyConstraint) {
+        this.primaryKeyConstraint = undefined;
+      }
+    }
 
-    abstract addUniqueConstraint(uk: UniqueConstraint): void;
-    abstract getUniqueConstraint(column: Column): UniqueConstraint;
-    abstract removeUniqueConstrtaint(uk: UniqueConstraint): void;
+    public addUniqueConstraint(uc: UniqueConstraint): void {
+      if (this.uniqueConstraints) {
+        this.uniqueConstraints.push(uc);
+        return;
+      } else {
+        return;
+      }
+    }
 
-    abstract addNotNullConstraint(nn: NotNullConstraint): void;
-    abstract getNotNullConstraint(column: Column): NotNullConstraint;
-    abstract removeNotNullConstraint(nn: NotNullConstraint): void;
+    public getUniqueConstraint(name: string): UniqueConstraint | undefined {
+      if (this.uniqueConstraints) {
+        return this.uniqueConstraints.filter(x => x.name === name)[0];
+      } else {
+        return undefined;
+      }
+    }
+    public removeUniqueConstraint(uk: UniqueConstraint): void {
+      if (this.uniqueConstraints) {
+        this.uniqueConstraints.splice(
+          this.uniqueConstraints.findIndex(e => e.name === name),
+          1
+        );
+      }
+    }
 
-    abstract addCheckConstraint(cc: CheckConstraint): void;
-    abstract getCheckConstraint(column: Column): CheckConstraint;
-    abstract removeCheckConstraint(cc: CheckConstraint): void;
+    // abstract addUniqueConstraint(uc: UniqueConstraint): void;
+    // abstract getUniqueConstraint(name: string): UniqueConstraint | undefined;
+    // abstract removeUniqueConstrtaint(uc: UniqueConstraint): void;
 
-    abstract addDefaultConstraint(dc: DefaultConstraint): void;
-    abstract getDefaultConstraint(column: Column): DefaultConstraint;
-    abstract removeDefaultConstraint(dc: DefaultConstraint): void;
+    //  `` abstract addNotNullConstraint(nn: NotNullConstraint): void;
+    //   abstract getNotNullConstraint(name: string): NotNullConstraint | undefined;
+    //   abstract removeNotNullConstraint(nn: NotNullConstraint): void;
 
-    abstract addForeignKeyConstraint(fk: ForeignKeyConstraint): void;
-    abstract getForeignKeyConstraint(columns: [Column]): ForeignKeyConstraint;
-    abstract removeForeignKeyConstraint(fk: ForeignKeyConstraint): void;
+    public addNotNullConstraint(uc: NotNullConstraint): void {
+      if (this.uniqueConstraints) {
+        this.uniqueConstraints.push(uc);
+        return;
+      } else {
+        return;
+      }
+    }
 
-    abstract addColumn(column: Column): void;
-    abstract getColumn(name: string): Column;
-    abstract removeColumn(column: Column): void;
+    public getNotNullConstraint(name: string): NotNullConstraint | undefined {
+      if (this.notNullConstraints) {
+        return this.notNullConstraints.filter(x => x.name === name)[0];
+      } else {
+        return undefined;
+      }
+    }
+    public removeNotNullConstraint(uk: NotNullConstraint): void {
+      if (this.notNullConstraints) {
+        this.notNullConstraints.splice(
+          this.notNullConstraints.findIndex(e => e.name === name),
+          1
+        );
+      }
+    }
+
+    // abstract addCheckConstraint(cc: CheckConstraint): void;
+    // abstract getCheckConstraint(name: string): CheckConstraint | undefined;
+    // abstract removeCheckConstraint(cc: CheckConstraint): void;
+
+    public addCheckConstraint(uc: CheckConstraint): void {
+      if (this.checkConstraints) {
+        this.checkConstraints.push(uc);
+        return;
+      } else {
+        return;
+      }
+    }
+
+    public getCheckConstraint(name: string): CheckConstraint | undefined {
+      if (this.checkConstraints) {
+        return this.checkConstraints.filter(x => x.name === name)[0];
+      } else {
+        return undefined;
+      }
+    }
+    public removeCheckConstraint(uk: CheckConstraint): void {
+      if (this.checkConstraints) {
+        this.checkConstraints.splice(
+          this.checkConstraints.findIndex(e => e.name === name),
+          1
+        );
+      }
+    }
+
+    // abstract addDefaultConstraint(dc: DefaultConstraint): void;
+    // abstract getDefaultConstraint(name: string): DefaultConstraint | undefined;
+    // abstract removeDefaultConstraint(dc: DefaultConstraint): void;
+
+    public addDefaultConstraint(uc: DefaultConstraint): void {
+      if (this.defaultConstraints) {
+        this.defaultConstraints.push(uc);
+        return;
+      } else {
+        return;
+      }
+    }
+
+    public getDefaultConstraint(name: string): DefaultConstraint | undefined {
+      if (this.defaultConstraints) {
+        return this.defaultConstraints.filter(x => x.name === name)[0];
+      } else {
+        return undefined;
+      }
+    }
+    public removeDefaultConstraint(uk: DefaultConstraint): void {
+      if (this.defaultConstraints) {
+        this.defaultConstraints.splice(
+          this.defaultConstraints.findIndex(e => e.name === name),
+          1
+        );
+      }
+    }
+
+    // abstract addForeignKeyConstraint(fk: ForeignKeyConstraint): void;
+    // abstract getForeignKeyConstraint(names: [string]): ForeignKeyConstraint;
+    // abstract removeForeignKeyConstraint(fk: ForeignKeyConstraint): void;
+
+    public addForeignKeyConstraint(uc: ForeignKeyConstraint): void {
+      if (this.foreignKeyConstraints) {
+        this.foreignKeyConstraints.push(uc);
+        return;
+      } else {
+        return;
+      }
+    }
+
+    public getForeignKeyConstraint(
+      name: string
+    ): ForeignKeyConstraint | undefined {
+      if (this.foreignKeyConstraints) {
+        return this.foreignKeyConstraints.filter(x => x.name === name)[0];
+      } else {
+        return undefined;
+      }
+    }
+    public removeForeignKeyConstraint(uk: ForeignKeyConstraint): void {
+      if (this.foreignKeyConstraints) {
+        this.foreignKeyConstraints.splice(
+          this.foreignKeyConstraints.findIndex(e => e.name === name),
+          1
+        );
+      }
+    }
+
+    // abstract addColumn(column: Column): void;
+    // abstract getColumn(name: string): Column;
+    // abstract removeColumn(name: string): void;
+
+    public addColumn(column: Column): void {
+      this.columns.push(column);
+    }
+
+    public getColumn(name: string): Column {
+      return this.columns.filter(x => x.name === name)[0];
+    }
+
+    public removeColumn(name: string): void {
+      this.columns.splice(
+        this.columns.findIndex(e => e.name === name),
+        1
+      );
+    }
   }
 
   export abstract class Sequence {
