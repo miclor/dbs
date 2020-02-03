@@ -4,6 +4,7 @@ export module RelationalElements {
   export abstract class Column {
     abstract name: string;
     abstract type: SQLTypes.SQLType;
+
   }
 
   export abstract class UniqueConstraint {
@@ -43,31 +44,52 @@ export module RelationalElements {
     abstract checkCondition: string;
   }
 
+  export abstract class DefaultConstraint {
+    abstract name: string;
+    abstract table: Table;
+    abstract column: Column;
+    abstract defaultValue: SQLTypes.SQLType;
+  }
+
   export type Constraint =
     | UniqueConstraint
     | PrimaryKeyConstraint
     | ForeignKeyConstraint
     | NotNullConstraint
-    | CheckConstraint;
+    | CheckConstraint
+    | DefaultConstraint;
 
   export abstract class Table {
     abstract name: string;
     abstract columns: Array<Column>;
     abstract constraints: Array<Constraint>;
+
     abstract addPrimaryKeyConstaint(pk: PrimaryKeyConstraint): void;
+    abstract getPrimaryKeyConstaint(): PrimaryKeyConstraint;
     abstract removePrimaryKeyConstraint(pk: PrimaryKeyConstraint): void;
-    abstract addUniqueConstraint(pk: PrimaryKeyConstraint): void;
-    abstract removeUniqueConstrtaint(pk: PrimaryKeyConstraint): void;
-    abstract addNotNullConstraint(pk: PrimaryKeyConstraint): void;
-    abstract removeNotNullConstraint(pk: PrimaryKeyConstraint): void;
-    abstract addCheckConstraint(pk: PrimaryKeyConstraint): void;
-    abstract removeCheckConstraint(pk: PrimaryKeyConstraint): void;
-    abstract addDefaultConstraint(pk: PrimaryKeyConstraint): void;
-    abstract removeDefaultConstraint(pk: PrimaryKeyConstraint): void;
-    abstract addForeignKeyConstraint(pk: PrimaryKeyConstraint): void;
-    abstract removeForeignKeyConstraint(pk: PrimaryKeyConstraint): void;
+
+    abstract addUniqueConstraint(uk: UniqueConstraint): void;
+    abstract getUniqueConstraint(column: Column): UniqueConstraint;
+    abstract removeUniqueConstrtaint(uk: UniqueConstraint): void;
+
+    abstract addNotNullConstraint(nn: NotNullConstraint): void;
+    abstract getNotNullConstraint(column: Column): NotNullConstraint;
+    abstract removeNotNullConstraint(nn: NotNullConstraint): void;
+
+    abstract addCheckConstraint(cc: CheckConstraint): void;
+    abstract getCheckConstraint(column: Column): CheckConstraint;
+    abstract removeCheckConstraint(cc: CheckConstraint): void;
+
+    abstract addDefaultConstraint(dc: DefaultConstraint): void;
+    abstract getDefaultConstraint(column: Column): DefaultConstraint;
+    abstract removeDefaultConstraint(dc: DefaultConstraint): void;
+
+    abstract addForeignKeyConstraint(fk: ForeignKeyConstraint): void;
+    abstract getForeignKeyConstraint(columns: [Column]): ForeignKeyConstraint;
+    abstract removeForeignKeyConstraint(fk: ForeignKeyConstraint): void;
 
     abstract addColumn(column: Column): void;
+    abstract getColumn(name: string): Column;
     abstract removeColumn(column: Column): void;
   }
 

@@ -189,6 +189,7 @@ export class Table extends RelationalElements.Table {
     this.tablespace = tablespace;
     this.indexTablespace = indexTablespace;
   }
+
 }
 
 export class TableBuilder {

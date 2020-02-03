@@ -255,7 +255,7 @@ it("Create two PG tables with all kinds of constraints", () => {
   expect(testTable2 instanceof Table).toBe(true);
 });
 
-// sequences
+// create sequences
 it("Create sequence with start 1", () => {
   const seq = SequenceBuilder.create()
     .setName("Seq1")
@@ -267,7 +267,18 @@ it("Create sequence with start 1", () => {
   expect(seq.maxvalue === 10).toBe(true);
 });
 
-// views
+it("Create sequence with start 1", () => {
+  const seq = SequenceBuilder.create()
+    .setName("Seq1")
+    .setStart(1)
+    .setMaxvalue(10)
+    .build();
+  seq.maxvalue = 23
+  expect(seq.maxvalue === 23).toBe(true);
+});
+
+
+// create views, views can (in Oracle) not be modified, therefore no methods
 it("Create view ", () => {
   const view = ViewBuilder.create()
     .setName("View1")
