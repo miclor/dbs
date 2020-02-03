@@ -184,15 +184,14 @@ export type Constraint =
 
 export class Table extends RelationalElements.Table {
   name: string;
-  schema?:string;
+  schema?: string;
   columns: Array<Column>;
-  primaryKeyConstraint?: PrimaryKeyConstraint,
-    uniqueConstraints?: Array<UniqueConstraint>,
-    notNullConstraints?: Array<NotNullConstraint>,
-    checkConstraints?: Array<CheckConstraint>,
-    defaultConstraints?: Array<DefaultConstraint>,
-    foreignKeyConstraint?: Array<ForeignKeyConstraint>,
-    
+  primaryKeyConstraint?: PrimaryKeyConstraint;
+  uniqueConstraints?: Array<UniqueConstraint>;
+  notNullConstraints?: Array<NotNullConstraint>;
+  checkConstraints?: Array<CheckConstraint>;
+  defaultConstraints?: Array<DefaultConstraint>;
+  foreignKeyConstraints?: Array<ForeignKeyConstraint>;
   temp?: boolean;
   unlogged?: boolean;
   ifNotExists?: boolean;
@@ -201,8 +200,8 @@ export class Table extends RelationalElements.Table {
 
   constructor(
     name: string,
-    schema: string,
     columns: Array<Column>,
+    schema?: string,
     primaryKeyConstraint?: PrimaryKeyConstraint,
     uniqueConstraints?: Array<UniqueConstraint>,
     notNullConstraints?: Array<NotNullConstraint>,
@@ -217,16 +216,16 @@ export class Table extends RelationalElements.Table {
   ) {
     super();
     this.name = name;
-    this.schema = schema,
-    this.columns = columns;
+    (this.schema = schema), (this.columns = columns);
     this.primaryKeyConstraint = primaryKeyConstraint;
     this.uniqueConstraints = uniqueConstraints;
     this.notNullConstraints = notNullConstraints;
     this.checkConstraints = checkConstraints;
     this.defaultConstraints = defaultConstraints;
-    this.foreignKeyConstraint = foreignKeyConstraint;
+    this.foreignKeyConstraints = foreignKeyConstraint;
     this.temp = temp;
     this.unlogged = unlogged;
+    this.ifNotExists = ifNotExists;
     this.tablespace = tablespace;
     this.indexTablespace = indexTablespace;
   }
@@ -236,7 +235,12 @@ export class TableBuilder {
   name: string = "";
   schema?: string;
   columns: Array<Column> = [];
-  constraints: Array<Constraint> = [];
+  primaryKeyConstraint?: PrimaryKeyConstraint;
+  uniqueConstraints?: Array<UniqueConstraint>;
+  notNullConstraints?: Array<NotNullConstraint>;
+  checkConstraints?: Array<CheckConstraint>;
+  defaultConstraints?: Array<DefaultConstraint>;
+  foreignKeyConstraints?: Array<ForeignKeyConstraint>;
   temp?: boolean;
   unlogged?: boolean;
   ifNotExists?: boolean;
@@ -251,17 +255,57 @@ export class TableBuilder {
     return this;
   }
   public setSchema(schema: string): TableBuilder {
-    this.schema = schema;
+    if (this.schema) {
+      this.schema = schema;
+    }
     return this;
   }
-  public setColumns(columns: Array<Column>): TableBuilder {
-    this.columns = columns;
+
+  public setPrimaryKey(pk: PrimaryKeyConstraint): TableBuilder {
+    this.primaryKeyConstraint = pk;
     return this;
   }
-  public setConstraints(constraints: Array<Constraint>): TableBuilder {
-    this.constraints = constraints;
+
+  public addUniqueConstraint(nn: UniqueConstraint): TableBuilder {
+    if (this.uniqueConstraints) {
+      this.uniqueConstraints.push(nn);
+    }
     return this;
   }
+
+  public addNotNullConstraint(nn: NotNullConstraint): TableBuilder {
+    if (this.notNullConstraints) {
+      this.notNullConstraints.push(nn);
+    }
+    return this;
+  }
+
+  public addCheckConstraint(cc: CheckConstraint): TableBuilder {
+    if (this.checkConstraints) {
+      this.checkConstraints.push(cc);
+    }
+    return this;
+  }
+
+  public addDefaultConstraint(dc: DefaultConstraint): TableBuilder {
+    if (this.defaultConstraints) {
+      this.defaultConstraints.push(dc);
+    }
+    return this;
+  }
+
+  public addNotForeignkeyConstraint(fk: ForeignKeyConstraint): TableBuilder {
+    if (this.foreignKeyConstraints) {
+      this.foreignKeyConstraints.push(fk);
+    }
+    return this;
+  }
+
+  // public setConstraints(constraints: Array<Constraint>): TableBuilder {
+  //   this.constraints = constraints;
+  //   return this;
+  // }
+
   public setTemp(temp: boolean): TableBuilder {
     this.temp = temp;
     return this;
@@ -287,7 +331,13 @@ export class TableBuilder {
     return new Table(
       this.name,
       this.columns,
-      this.constraints,
+      this.schema,
+      this.primaryKeyConstraint,
+      this.uniqueConstraints,
+      this.notNullConstraints,
+      this.checkConstraints,
+      this.defaultConstraints,
+      this.foreignKeyConstraints,
       this.temp,
       this.unlogged,
       this.ifNotExists,

@@ -258,7 +258,7 @@ it("Create two PG tables with all kinds of constraints", () => {
 it("addPrimaryKeyConstaint", () => {
   const col1 = new Column("Col1", new VARCHAR(20));
   const col2 = new Column("Col2", new VARCHAR(20));
-  let testTable = new Table("TestTable", [col1, col2], []);
+  let testTable = new Table("TestTable", "Schema", [col1, col2], []);
   const pkConstraint = new PrimaryKeyConstraint("PK1", testTable, [col1]);
   testTable.addPrimaryKeyConstaint(pkConstraint);
 
