@@ -69,13 +69,8 @@ export module RelationalElements {
     abstract defaultConstraints?: Array<DefaultConstraint>;
     abstract foreignKeyConstraints?: Array<ForeignKeyConstraint>;
 
-    // public addPrimaryKeyConstaint(pk: PrimaryKeyConstraint): Table;
-    // public getPrimaryKeyConstaint(): PrimaryKeyConstraint | undefined;
-    // public removePrimaryKeyConstraint(pk: PrimaryKeyConstraint): void;
     public addPrimaryKeyConstraint(pk: PrimaryKeyConstraint): void {
-      if (this.primaryKeyConstraint) {
-        this.primaryKeyConstraint = pk;
-      }
+      this.primaryKeyConstraint = pk;
     }
     public getPrimaryKeyConstraint(): PrimaryKeyConstraint | undefined {
       if (this.primaryKeyConstraint) {
@@ -92,21 +87,26 @@ export module RelationalElements {
 
     public addUniqueConstraint(uc: UniqueConstraint): void {
       if (this.uniqueConstraints) {
+        console.log("added uc");
         this.uniqueConstraints.push(uc);
         return;
       } else {
+        console.log("add uc, fail");
         return;
       }
     }
 
     public getUniqueConstraint(name: string): UniqueConstraint | undefined {
       if (this.uniqueConstraints) {
+        console.log("uc:");
         return this.uniqueConstraints.filter(x => x.name === name)[0];
       } else {
+        console.log("uc is undefined");
         return undefined;
       }
     }
-    public removeUniqueConstraint(uk: UniqueConstraint): void {
+
+    public removeUniqueConstraint(name: string): void {
       if (this.uniqueConstraints) {
         this.uniqueConstraints.splice(
           this.uniqueConstraints.findIndex(e => e.name === name),
@@ -114,14 +114,6 @@ export module RelationalElements {
         );
       }
     }
-
-    // abstract addUniqueConstraint(uc: UniqueConstraint): void;
-    // abstract getUniqueConstraint(name: string): UniqueConstraint | undefined;
-    // abstract removeUniqueConstrtaint(uc: UniqueConstraint): void;
-
-    //  `` abstract addNotNullConstraint(nn: NotNullConstraint): void;
-    //   abstract getNotNullConstraint(name: string): NotNullConstraint | undefined;
-    //   abstract removeNotNullConstraint(nn: NotNullConstraint): void;
 
     public addNotNullConstraint(uc: NotNullConstraint): void {
       if (this.uniqueConstraints) {
@@ -148,10 +140,6 @@ export module RelationalElements {
       }
     }
 
-    // abstract addCheckConstraint(cc: CheckConstraint): void;
-    // abstract getCheckConstraint(name: string): CheckConstraint | undefined;
-    // abstract removeCheckConstraint(cc: CheckConstraint): void;
-
     public addCheckConstraint(uc: CheckConstraint): void {
       if (this.checkConstraints) {
         this.checkConstraints.push(uc);
@@ -168,6 +156,7 @@ export module RelationalElements {
         return undefined;
       }
     }
+
     public removeCheckConstraint(uk: CheckConstraint): void {
       if (this.checkConstraints) {
         this.checkConstraints.splice(
@@ -176,10 +165,6 @@ export module RelationalElements {
         );
       }
     }
-
-    // abstract addDefaultConstraint(dc: DefaultConstraint): void;
-    // abstract getDefaultConstraint(name: string): DefaultConstraint | undefined;
-    // abstract removeDefaultConstraint(dc: DefaultConstraint): void;
 
     public addDefaultConstraint(uc: DefaultConstraint): void {
       if (this.defaultConstraints) {
@@ -205,10 +190,6 @@ export module RelationalElements {
         );
       }
     }
-
-    // abstract addForeignKeyConstraint(fk: ForeignKeyConstraint): void;
-    // abstract getForeignKeyConstraint(names: [string]): ForeignKeyConstraint;
-    // abstract removeForeignKeyConstraint(fk: ForeignKeyConstraint): void;
 
     public addForeignKeyConstraint(uc: ForeignKeyConstraint): void {
       if (this.foreignKeyConstraints) {
@@ -236,10 +217,6 @@ export module RelationalElements {
         );
       }
     }
-
-    // abstract addColumn(column: Column): void;
-    // abstract getColumn(name: string): Column;
-    // abstract removeColumn(name: string): void;
 
     public addColumn(column: Column): void {
       this.columns.push(column);

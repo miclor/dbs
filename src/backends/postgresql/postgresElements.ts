@@ -250,10 +250,17 @@ export class TableBuilder {
   public static create(): TableBuilder {
     return new TableBuilder();
   }
+
   public setName(name: string): TableBuilder {
     this.name = name;
     return this;
   }
+
+  public setColumns(columns: Array<Column>): TableBuilder {
+    this.columns = columns;
+    return this;
+  }
+
   public setSchema(schema: string): TableBuilder {
     if (this.schema) {
       this.schema = schema;
