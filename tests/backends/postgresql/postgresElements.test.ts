@@ -324,7 +324,7 @@ it("add/get/remove UniqueConstraint", () => {
 
   testTable.removeUniqueConstraint("Col1");
   let uc3 = testTable.addUniqueConstraint(uc);
-  expect(uc3 === undefined).toBe(false);
+  expect(uc3 === undefined).toBe(true);
 });
 
 // public addNotNullConstraint(nn: NotNullConstraint): void {};
