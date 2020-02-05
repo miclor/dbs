@@ -112,6 +112,7 @@ export module RelationalElements {
 
     public addNotNullConstraint(nn: NotNullConstraint): void {
       if (this.notNullConstraints) {
+        console.log("pushed nn constraints");
         this.notNullConstraints.push(nn);
       } else {
         console.log("added nn constraints");
@@ -121,7 +122,7 @@ export module RelationalElements {
 
     public getNotNullConstraint(column: string): NotNullConstraint | undefined {
       if (this.notNullConstraints) {
-        console.log("'nn constraints --->", this.notNullConstraints);
+        console.log("'nn constraints ---ßßßß>", this.notNullConstraints);
         return this.notNullConstraints.filter(x => x.column.name === column)[0];
       } else {
         return undefined;
@@ -137,27 +138,29 @@ export module RelationalElements {
       }
     }
 
-    public addCheckConstraint(uc: CheckConstraint): void {
+    public addCheckConstraint(nn: CheckConstraint): void {
       if (this.checkConstraints) {
-        this.checkConstraints.push(uc);
-        return;
+        console.log("pushed nn constraints");
+        this.checkConstraints.push(nn);
       } else {
-        return;
+        console.log("added nn constraints");
+        this.checkConstraints = [nn];
       }
     }
 
-    public getCheckConstraint(name: string): CheckConstraint | undefined {
+    public getCheckConstraint(column: string): CheckConstraint | undefined {
       if (this.checkConstraints) {
-        return this.checkConstraints.filter(x => x.column.name === name)[0];
+        console.log("'nn constraints ---ßßßß>", this.checkConstraints);
+        return this.checkConstraints.filter(x => x.column.name === column)[0];
       } else {
         return undefined;
       }
     }
 
-    public removeCheckConstraint(uk: CheckConstraint): void {
+    public removeCheckConstraint(column: string): void {
       if (this.checkConstraints) {
         this.checkConstraints.splice(
-          this.checkConstraints.findIndex(e => e.column.name === name),
+          this.checkConstraints.findIndex(e => e.column.name === column),
           1
         );
       }
