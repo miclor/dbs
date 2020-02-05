@@ -87,26 +87,16 @@ export module RelationalElements {
 
     public addUniqueConstraint(uc: UniqueConstraint): void {
       if (this.uniqueConstraints) {
-        console.log("added uc");
         this.uniqueConstraints.push(uc);
-        return;
       } else {
-        console.log("add uc, fail");
         this.uniqueConstraints = [uc];
-        return;
       }
     }
 
     public getUniqueConstraint(name: string): UniqueConstraint | undefined {
       if (this.uniqueConstraints) {
-        console.log("uc: ", this.uniqueConstraints);
-        const result = this.uniqueConstraints.filter(
-          x => x.column.name === name
-        );
-        console.log(result);
-        return result[0];
+        return this.uniqueConstraints.filter(x => x.column.name === name)[0];
       } else {
-        console.log("uc is undefined");
         return undefined;
       }
     }
@@ -114,32 +104,34 @@ export module RelationalElements {
     public removeUniqueConstraint(name: string): void {
       if (this.uniqueConstraints) {
         this.uniqueConstraints.splice(
-          this.uniqueConstraints.findIndex(e => e.name === name),
+          this.uniqueConstraints.findIndex(e => e.column.name === name),
           1
         );
       }
     }
 
-    public addNotNullConstraint(uc: NotNullConstraint): void {
-      if (this.uniqueConstraints) {
-        this.uniqueConstraints.push(uc);
-        return;
+    public addNotNullConstraint(nn: NotNullConstraint): void {
+      if (this.notNullConstraints) {
+        this.notNullConstraints.push(nn);
       } else {
-        return;
+        console.log("added nn constraints");
+        this.notNullConstraints = [nn];
       }
     }
 
-    public getNotNullConstraint(name: string): NotNullConstraint | undefined {
+    public getNotNullConstraint(column: string): NotNullConstraint | undefined {
       if (this.notNullConstraints) {
-        return this.notNullConstraints.filter(x => x.name === name)[0];
+        console.log("'nn constraints --->", this.notNullConstraints);
+        return this.notNullConstraints.filter(x => x.column.name === column)[0];
       } else {
         return undefined;
       }
     }
-    public removeNotNullConstraint(uk: NotNullConstraint): void {
+
+    public removeNotNullConstraint(column: string): void {
       if (this.notNullConstraints) {
         this.notNullConstraints.splice(
-          this.notNullConstraints.findIndex(e => e.name === name),
+          this.notNullConstraints.findIndex(e => e.column.name === column),
           1
         );
       }
@@ -156,7 +148,7 @@ export module RelationalElements {
 
     public getCheckConstraint(name: string): CheckConstraint | undefined {
       if (this.checkConstraints) {
-        return this.checkConstraints.filter(x => x.name === name)[0];
+        return this.checkConstraints.filter(x => x.column.name === name)[0];
       } else {
         return undefined;
       }
@@ -165,7 +157,7 @@ export module RelationalElements {
     public removeCheckConstraint(uk: CheckConstraint): void {
       if (this.checkConstraints) {
         this.checkConstraints.splice(
-          this.checkConstraints.findIndex(e => e.name === name),
+          this.checkConstraints.findIndex(e => e.column.name === name),
           1
         );
       }
@@ -182,7 +174,7 @@ export module RelationalElements {
 
     public getDefaultConstraint(name: string): DefaultConstraint | undefined {
       if (this.defaultConstraints) {
-        return this.defaultConstraints.filter(x => x.name === name)[0];
+        return this.defaultConstraints.filter(x => x.column.name === name)[0];
       } else {
         return undefined;
       }
@@ -190,7 +182,7 @@ export module RelationalElements {
     public removeDefaultConstraint(uk: DefaultConstraint): void {
       if (this.defaultConstraints) {
         this.defaultConstraints.splice(
-          this.defaultConstraints.findIndex(e => e.name === name),
+          this.defaultConstraints.findIndex(e => e.column.name === name),
           1
         );
       }
@@ -206,18 +198,18 @@ export module RelationalElements {
     }
 
     public getForeignKeyConstraint(
-      name: string
+      columns: [string]
     ): ForeignKeyConstraint | undefined {
       if (this.foreignKeyConstraints) {
-        return this.foreignKeyConstraints.filter(x => x.name === name)[0];
+        return this.foreignKeyConstraints.filter(x => x.columns === name)[0];
       } else {
         return undefined;
       }
     }
-    public removeForeignKeyConstraint(uk: ForeignKeyConstraint): void {
+    public removeForeignKeyConstraint(columns: [string]): void {
       if (this.foreignKeyConstraints) {
         this.foreignKeyConstraints.splice(
-          this.foreignKeyConstraints.findIndex(e => e.name === name),
+          this.foreignKeyConstraints.findIndex(e => e.columns === name),
           1
         );
       }
