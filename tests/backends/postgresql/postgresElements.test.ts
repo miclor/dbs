@@ -315,16 +315,17 @@ it("add/get/remove UniqueConstraint", () => {
     .setColumns(cols)
     .build();
 
-  let uc = new UniqueConstraint("PK1", testTable, col1);
+  let uc = new UniqueConstraint("uc1", testTable, col1);
   testTable.addUniqueConstraint(uc);
+
   expect(testTable instanceof Table).toBe(true);
 
-  let uc2 = testTable.getUniqueConstraint("Col1");
+  let uc2: UniqueConstraint | undefined = testTable.getUniqueConstraint("Col1");
   expect(uc2 instanceof UniqueConstraint).toBe(true);
 
   testTable.removeUniqueConstraint("Col1");
   let uc3 = testTable.addUniqueConstraint(uc);
-  expect(uc3 === undefined).toBe(false);
+  expect(uc3 === undefined).toBe(true);
 });
 
 // public addNotNullConstraint(nn: NotNullConstraint): void {};

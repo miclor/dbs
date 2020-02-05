@@ -87,21 +87,16 @@ export module RelationalElements {
 
     public addUniqueConstraint(uc: UniqueConstraint): void {
       if (this.uniqueConstraints) {
-        console.log("added uc");
         this.uniqueConstraints.push(uc);
-        return;
       } else {
-        console.log("add uc, fail");
-        return;
+        this.uniqueConstraints = [uc];
       }
     }
 
     public getUniqueConstraint(name: string): UniqueConstraint | undefined {
       if (this.uniqueConstraints) {
-        console.log("uc:");
-        return this.uniqueConstraints.filter(x => x.name === name)[0];
+        return this.uniqueConstraints.filter(x => x.column.name === name)[0];
       } else {
-        console.log("uc is undefined");
         return undefined;
       }
     }
