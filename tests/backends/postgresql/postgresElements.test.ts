@@ -320,18 +320,39 @@ it("add/get/remove UniqueConstraint", () => {
 
   expect(testTable instanceof Table).toBe(true);
 
-  let uc2: UniqueConstraint | undefined = testTable.getUniqueConstraint("Col1");
+  let uc2 = testTable.getUniqueConstraint("Col1");
   expect(uc2 instanceof UniqueConstraint).toBe(true);
 
   testTable.removeUniqueConstraint("Col1");
-  let uc3 = testTable.addUniqueConstraint(uc);
+  let uc3 = testTable.getUniqueConstraint("Col");
   expect(uc3 === undefined).toBe(true);
 });
 
 // public addNotNullConstraint(nn: NotNullConstraint): void {};
 // public getNotNullConstraint(column: Column): NotNullConstraint;
 // public removeNotNullConstraint(nn: NotNullConstraint): void {};
+it("add/get/remove NotNullConstraint", () => {
+  const col1 = new Column("Col1", new VARCHAR(20));
+  const col2 = new Column("Col2", new VARCHAR(20));
+  const cols = [col1, col2];
+  let testTable = TableBuilder.create()
+    .setName("ExampleTable")
+    .setSchema("ExampleSxhema")
+    .setColumns(cols)
+    .build();
 
+  let nn = new NotNullConstraint("nn1", testTable, col1);
+  testTable.addNotNullConstraint(nn);
+
+  expect(testTable instanceof Table).toBe(true);
+
+  let nn2 = testTable.getNotNullConstraint("Col1");
+  expect(nn2 instanceof NotNullConstraint).toBe(true);
+
+  testTable.removeNotNullConstraint("Col1");
+  let nn3 = testTable.getNotNullConstraint("Col1");
+  expect(nn3 === undefined).toBe(true);
+});
 // public addCheckConstraint(cc: CheckConstraint): void {};
 // public getCheckConstraint(column: Column): CheckConstraint;
 // public removeCheckConstraint(cc: CheckConstraint): void {};
