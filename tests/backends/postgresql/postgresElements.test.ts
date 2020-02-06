@@ -192,9 +192,9 @@ it("Create foreign key constraint", () => {
   const fk = new ForeignKeyConstraint(
     "fk1",
     testTable1,
-    [col1],
+    ["Col1"],
     testTable2,
-    [col3],
+    ["Col3"],
     "CASCADE",
     "CASCADE"
   );
@@ -270,9 +270,9 @@ it("Create two PG tables with all kinds of constraints", () => {
   const fkContstraint = new ForeignKeyConstraint(
     "fkTest",
     testTable,
-    [col1],
+    ["Col1"],
     testTable2,
-    [col1],
+    ["col3"],
     "CASCADE",
     "CASCADE"
   );
@@ -303,9 +303,6 @@ it("add/get/remove PrimaryKeyConstaint", () => {
   expect(pk instanceof PrimaryKeyConstraint).toBe(false);
 });
 
-// public addUniqueConstraint(uk: UniqueConstraint): void {};
-// public getUniqueConstraint(column: Column): UniqueConstraint;
-// public removeUniqueConstrtaint(uk: UniqueConstraint): void {};
 it("add/get/remove UniqueConstraint", () => {
   const col1 = new Column("Col1", new VARCHAR(20));
   const col2 = new Column("Col2", new VARCHAR(20));
@@ -329,9 +326,6 @@ it("add/get/remove UniqueConstraint", () => {
   expect(uc3 === undefined).toBe(true);
 });
 
-// public addNotNullConstraint(nn: NotNullConstraint): void {};
-// public getNotNullConstraint(column: Column): NotNullConstraint;
-// public removeNotNullConstraint(nn: NotNullConstraint): void {};
 it("add/get/remove NotNullConstraint", () => {
   const col1 = new Column("Col1", new VARCHAR(20));
   const col2 = new Column("Col2", new VARCHAR(20));
@@ -354,9 +348,7 @@ it("add/get/remove NotNullConstraint", () => {
   let nn3 = testTable.getNotNullConstraint("Col1");
   expect(nn3 === undefined).toBe(true);
 });
-// public addCheckConstraint(cc: CheckConstraint): void {};
-// public getCheckConstraint(column: Column): CheckConstraint;
-// public removeCheckConstraint(cc: CheckConstraint): void {};
+
 it("add/get/remove CheckConstraint", () => {
   const col1 = new Column("Col1", new VARCHAR(20));
   const col2 = new Column("Col2", new VARCHAR(20));
@@ -380,9 +372,6 @@ it("add/get/remove CheckConstraint", () => {
   expect(nn3 === undefined).toBe(true);
 });
 
-// public addDefaultConstraint(dc: DefaultConstraint): void {};
-// public getDefaultConstraint(column: Column): DefaultConstraint;
-// public removeDefaultConstraint(dc: DefaultConstraint): void {};
 it("add/get/remove DefaultConstraint", () => {
   const col1 = new Column("Col1", new VARCHAR(20));
   const col2 = new Column("Col2", new VARCHAR(20));
@@ -405,13 +394,57 @@ it("add/get/remove DefaultConstraint", () => {
   let nn3 = testTable.getDefaultConstraint("Col1");
   expect(nn3 === undefined).toBe(true);
 });
-// public addForeignKeyConstraint(fk: ForeignKeyConstraint): void {};
-// public getForeignKeyConstraint(columns: [Column]): ForeignKeyConstraint;
-// public removeForeignKeyConstraint(fk: ForeignKeyConstraint): void {};
 
-// public addColumn(column: Column): void;
-// public getColumn(name: string): Column;
-// public removeColumn(column: Column): void;
+it("add/get/remove ForeignKeyConstraint", () => {
+  const col1 = new Column("Col1", new VARCHAR(20));
+  const col2 = new Column("Col2", new VARCHAR(20));
+  const cols = [col1, col2];
+  let testTable = TableBuilder.create()
+    .setName("ExampleTable")
+    .setSchema("ExampleSchema")
+    .setColumns(cols)
+    .build();
+
+  const col3 = new Column("Col1", new VARCHAR(20));
+  const col4 = new Column("Col2", new VARCHAR(20));
+  let testTable2 = TableBuilder.create()
+    .setName("ExampleTable")
+    .setSchema("ExampleSchema")
+    .setColumns([col3, col4])
+    .build();
+
+  let fk1 = new ForeignKeyConstraint("fk1", testTable, ["Col1"], testTable2, ["Col1"], "CASCADE", "CASCADE");
+  testTable.addForeignKeyConstraint(fk1);
+  expect(testTable instanceof Table).toBe(true);
+
+  let fk2 = testTable.getForeignKeyConstraint(["Col1"]);
+  expect(fk2 instanceof ForeignKeyConstraint).toBe(true);
+
+  testTable.removeForeignKeyConstraint(["Col1"]);
+  let fk3 = testTable.getForeignKeyConstraint(["Col1"]);
+  expect(fk3 === undefined).toBe(true);
+});
+
+it("add/get/remove column", () => {
+  const col1 = new Column("Col1", new VARCHAR(20));
+  const col2 = new Column("Col2", new VARCHAR(20));
+  let testTable = TableBuilder.create()
+    .setName("ExampleTable")
+    .setSchema("ExampleSchema")
+    .setColumns([col1])
+    .build();
+  expect(testTable instanceof Table).toBe(true);
+  testTable.addColumn(col2);
+
+  const resultCol = testTable.getColumn("Col2")
+  expect(resultCol instanceof Column).toBe(true);
+
+  testTable.removeColumn("Col2");
+  expect(testTable.getColumn("Col2") === undefined).toBe(true);
+
+
+});
+
 
 // create sequences
 it("Create sequence with start 1", () => {

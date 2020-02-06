@@ -21,9 +21,9 @@ export module RelationalElements {
   export abstract class ForeignKeyConstraint {
     abstract name: string;
     abstract table: Table;
-    abstract columns: [Column];
+    abstract columnNames: [string];
     abstract referencedTable: Table;
-    abstract referencedColumnNames: [Column];
+    abstract referencedColumnNames: [string];
     abstract onDelete: OnDelete;
     abstract onUpdate: OnDelete;
   }
@@ -72,6 +72,7 @@ export module RelationalElements {
     public addPrimaryKeyConstraint(pk: PrimaryKeyConstraint): void {
       this.primaryKeyConstraint = pk;
     }
+
     public getPrimaryKeyConstraint(): PrimaryKeyConstraint | undefined {
       if (this.primaryKeyConstraint) {
         return this.primaryKeyConstraint;
@@ -79,6 +80,7 @@ export module RelationalElements {
         return undefined;
       }
     }
+
     public removePrimaryKeyConstraint(): void {
       if (this.primaryKeyConstraint) {
         this.primaryKeyConstraint = undefined;
@@ -112,17 +114,14 @@ export module RelationalElements {
 
     public addNotNullConstraint(nn: NotNullConstraint): void {
       if (this.notNullConstraints) {
-        console.log("pushed nn constraints");
         this.notNullConstraints.push(nn);
       } else {
-        console.log("added nn constraints");
         this.notNullConstraints = [nn];
       }
     }
 
     public getNotNullConstraint(column: string): NotNullConstraint | undefined {
       if (this.notNullConstraints) {
-        console.log("'nn constraints ---ßßßß>", this.notNullConstraints);
         return this.notNullConstraints.filter(x => x.column.name === column)[0];
       } else {
         return undefined;
@@ -140,17 +139,14 @@ export module RelationalElements {
 
     public addCheckConstraint(nn: CheckConstraint): void {
       if (this.checkConstraints) {
-        console.log("pushed nn constraints");
         this.checkConstraints.push(nn);
       } else {
-        console.log("added nn constraints");
         this.checkConstraints = [nn];
       }
     }
 
     public getCheckConstraint(column: string): CheckConstraint | undefined {
       if (this.checkConstraints) {
-        console.log("'nn constraints ---ßßßß>", this.checkConstraints);
         return this.checkConstraints.filter(x => x.column.name === column)[0];
       } else {
         return undefined;
@@ -168,10 +164,8 @@ export module RelationalElements {
 
     public addDefaultConstraint(dc: DefaultConstraint): void {
       if (this.defaultConstraints) {
-        console.log("pushed nn constraints");
         this.defaultConstraints.push(dc);
       } else {
-        console.log("added nn constraints");
         this.defaultConstraints = [dc];
       }
     }
@@ -193,28 +187,29 @@ export module RelationalElements {
       }
     }
 
-    public addForeignKeyConstraint(uc: ForeignKeyConstraint): void {
+    public addForeignKeyConstraint(fk: ForeignKeyConstraint): void {
       if (this.foreignKeyConstraints) {
-        this.foreignKeyConstraints.push(uc);
-        return;
-      } else {
-        return;
+        this.foreignKeyConstraints.push(fk);
       }
+      this.foreignKeyConstraints = [fk];
     }
 
-    public getForeignKeyConstraint(
-      columns: [string]
-    ): ForeignKeyConstraint | undefined {
+    public getForeignKeyConstraint(columns: [string]): ForeignKeyConstraint | undefined {
       if (this.foreignKeyConstraints) {
-        return this.foreignKeyConstraints.filter(x => x.columns === name)[0];
-      } else {
+        for (let i = 0; i < this.foreignKeyConstraints.length; i++) {
+          if (JSON.stringify(this.foreignKeyConstraints[i].columnNames) === JSON.stringify(columns)) {
+            return this.foreignKeyConstraints[i];
+          }
+        }
         return undefined;
       }
+      return undefined;
     }
+
     public removeForeignKeyConstraint(columns: [string]): void {
       if (this.foreignKeyConstraints) {
         this.foreignKeyConstraints.splice(
-          this.foreignKeyConstraints.findIndex(e => e.columns === name),
+          this.foreignKeyConstraints.findIndex(e => JSON.stringify(e.columnNames) === JSON.stringify(columns)),
           1
         );
       }

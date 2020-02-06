@@ -98,27 +98,27 @@ export class PrimaryKeyConstraint extends RelationalElements.PrimaryKeyConstrain
 export class ForeignKeyConstraint extends RelationalElements.ForeignKeyConstraint {
   name: string;
   table: Table;
-  columns: [Column];
+  columnNames: [string];
   referencedTable: Table;
-  referencedColumnNames: [Column];
+  referencedColumnNames: [string];
   onDelete: RelationalElements.OnDelete;
   onUpdate: RelationalElements.OnDelete;
 
   constructor(
     name: string,
     table: Table,
-    columns: [Column],
+    columnNames: [string],
     referencedTable: Table,
-    referencedColumns: [Column],
+    referencedColumnNames: [string],
     onDelete: RelationalElements.OnDelete,
     onUpdate: RelationalElements.OnDelete
   ) {
     super();
     this.name = name;
     this.table = table;
-    this.columns = columns;
+    this.columnNames = columnNames;
     this.referencedTable = referencedTable;
-    this.referencedColumnNames = referencedColumns;
+    this.referencedColumnNames = referencedColumnNames;
     this.onDelete = onDelete;
     this.onUpdate = onUpdate;
   }
@@ -636,7 +636,6 @@ export class SequenceBuilder {
 //         return new Column(name, new XML());
 
 //       default:
-//         console.log("No such day exists!");
 //         break;
 //     }
 //     throw new TypeError();
