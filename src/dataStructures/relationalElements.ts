@@ -166,26 +166,28 @@ export module RelationalElements {
       }
     }
 
-    public addDefaultConstraint(uc: DefaultConstraint): void {
+    public addDefaultConstraint(dc: DefaultConstraint): void {
       if (this.defaultConstraints) {
-        this.defaultConstraints.push(uc);
-        return;
+        console.log("pushed nn constraints");
+        this.defaultConstraints.push(dc);
       } else {
-        return;
+        console.log("added nn constraints");
+        this.defaultConstraints = [dc];
       }
     }
 
-    public getDefaultConstraint(name: string): DefaultConstraint | undefined {
+    public getDefaultConstraint(column: string): DefaultConstraint | undefined {
       if (this.defaultConstraints) {
-        return this.defaultConstraints.filter(x => x.column.name === name)[0];
+        return this.defaultConstraints.filter(x => x.column.name === column)[0];
       } else {
         return undefined;
       }
     }
-    public removeDefaultConstraint(uk: DefaultConstraint): void {
+
+    public removeDefaultConstraint(column: string): void {
       if (this.defaultConstraints) {
         this.defaultConstraints.splice(
-          this.defaultConstraints.findIndex(e => e.column.name === name),
+          this.defaultConstraints.findIndex(e => e.column.name === column),
           1
         );
       }
