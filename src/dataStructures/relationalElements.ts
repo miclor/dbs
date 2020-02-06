@@ -251,12 +251,3 @@ export module RelationalElements {
 
   export type ViewCheckOption = "LOCAL" | "CASCADE";
 
-  // export interface RelationalElementFactory {
-  //   //makeColumn(name: string, type: string, length?: number, scale?: number, precision?: number): RelationalElements.Column;
-  //   makeUniqueConstraint(name: string, schema: string): RelationalElements.UniqueConstraint;
-  //   makePrimaryKeyConstraint(name: string, schema: string): RelationalElements.PrimaryKeyConstraint;
-  //   makeForeignKeyConstraint(name: string, schema: string): RelationalElements.ForeignKeyConstraint;
-  //   makeNotNullConstraint(name: string, schema: string): RelationalElements.NotNullConstraint;
-  //   makeCheckConstraint(name: string, schema: string): RelationalElements.CheckConstraint;
-  // }
-}
