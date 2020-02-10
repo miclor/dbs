@@ -8,19 +8,14 @@ export abstract class Metabase {
     abstract sequences: Array<RelationalElements.Sequence>;
     abstract views: Array<RelationalElements.View>;
 
-    abstract addTable(): void;
-    abstract alterTable(): void;
-    abstract dropTable(): void;
+    abstract addTable(table: RelationalElements.Table): void;
+    abstract dropTable(table: RelationalElements.Table): void;
 
-    abstract addColumn(): void;
-    abstract alterColumn(): void;
-    abstract dropColumn(): void;
+    abstract addSequence(sequence: RelationalElements.Sequence): void;
+    abstract dropSequence(sequence: RelationalElements.Sequence): void;
 
-    abstract addSequence(): void;
-    abstract alterSequence(): void;
-    abstract dropSequence(): void;
-    abstract addView(): void;
-    abstract dropView(): void;
+    abstract addView(view: RelationalElements.View): void;
+    abstract dropView(view: RelationalElements.View): void;
 
     abstract getTable(name: string, schema: string): RelationalElements.Table;
     abstract getColumn(name: string, schema: string): RelationalElements.Column;

@@ -17,37 +17,41 @@ export class Metabase extends genericMetabase.Metabase {
 
     }
 
-    addTable(): void {
+    addTable(table: postgresElements.Table): void {
         throw new Error("Method not implemented.");
     }
-    alterTable(): void {
+
+    // alterTable(table: postgresElements.Table, changeType: changeType, parameters: object): void {
+    //     throw new Error("Method not implemented.");
+    // }    
+
+    dropTable(table: postgresElements.Table): void {
         throw new Error("Method not implemented.");
     }
-    dropTable(): void {
+
+    addColumn(column: postgresElements.Column): void {
         throw new Error("Method not implemented.");
     }
-    addColumn(): void {
+    alterColumn(column: postgresElements.Column): void {
         throw new Error("Method not implemented.");
     }
-    alterColumn(): void {
+    dropColumn(column: postgresElements.Column): void {
         throw new Error("Method not implemented.");
     }
-    dropColumn(): void {
+
+    addSequence(sequence: postgresElements.Sequence): void {
         throw new Error("Method not implemented.");
     }
-    addSequence(): void {
+    alterSequence(sequence: postgresElements.Sequence): void {
         throw new Error("Method not implemented.");
     }
-    alterSequence(): void {
+    dropSequence(sequence: postgresElements.Sequence): void {
         throw new Error("Method not implemented.");
     }
-    dropSequence(): void {
+    addView(view: postgresElements.View): void {
         throw new Error("Method not implemented.");
     }
-    addView(): void {
-        throw new Error("Method not implemented.");
-    }
-    dropView(): void {
+    dropView(view: postgresElements.View): void {
         throw new Error("Method not implemented.");
     }
     getTable(name: string, schema: string): postgresElements.Table {
@@ -62,6 +66,5 @@ export class Metabase extends genericMetabase.Metabase {
     getView(name: string, schema: string): postgresElements.View {
         throw new Error("Method not implemented.");
     }
-
 
 }
