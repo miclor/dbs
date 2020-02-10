@@ -1,22 +1,20 @@
 import { readFileSync } from "fs";
+import { Table } from "../../../src/backends/postgresql/postgresElements"
+import { CreateTableCommand } from "../../../src/backends/postgresql/changes";
+import { Metabase } from "../../../src/backends/postgresql/metabase";
 
 
 it("Read create table statement", () => {
   const file = readFileSync(__dirname + "/test_data/create_table.json", "utf-8");
-  // console.log(file)
   const change = JSON.parse(file);
-  // console.log(change);
-  const columns = change.parameters.columns;
-  // console.log(columns);
-  // console.log(parameters);
   expect(change.parameters.columns[0].name === "col1").toBe(true);
 });
 
-it("Create Postgresql table", () => {
-  let result;
 
+it("Create Postgresql CreateTableCommand", () => {
+  let command = new CreateTableCommand();
 
-  expect(result typeof Table).toBe(true);
+  expect(typeof command === CreateTableCommand).toBe(true);
 });
 
 it("Alter table, add column", () => {

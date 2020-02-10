@@ -1,12 +1,12 @@
-import { Table, Column, Sequence, View } from "./dataStructures/relationalElements";
+import { RelationalElements } from "./dataStructures/relationalElements";
 
 
 export abstract class Metabase {
 
-    abstract tables: Array<Table>;
-    abstract columns: Array<Column>;
-    abstract sequences: Array<Sequence>;
-    abstract views: Array<View>;
+    abstract tables: Array<RelationalElements.Table>;
+    abstract columns: Array<RelationalElements.Column>;
+    abstract sequences: Array<RelationalElements.Sequence>;
+    abstract views: Array<RelationalElements.View>;
 
     abstract addTable(): void;
     abstract alterTable(): void;
@@ -22,8 +22,8 @@ export abstract class Metabase {
     abstract addView(): void;
     abstract dropView(): void;
 
-    abstract getTable(name: string, schema: string): Table;
-    abstract getColumn(name: string, schema: string): Column;
-    abstract getSequence(name: string, schema: string): Sequence;
-    abstract getView(name: string, schema: string): View;
+    abstract getTable(name: string, schema: string): RelationalElements.Table;
+    abstract getColumn(name: string, schema: string): RelationalElements.Column;
+    abstract getSequence(name: string, schema: string): RelationalElements.Sequence;
+    abstract getView(name: string, schema: string): RelationalElements.View;
 }

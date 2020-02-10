@@ -251,3 +251,4 @@ export module RelationalElements {
 
   export type ViewCheckOption = "LOCAL" | "CASCADE";
 
+}

@@ -2,7 +2,7 @@ import * as genericMetabase from "../../metabase"
 import * as postgresElements from "./postgresElements"
 import * as postgresTypes from "./postgresTypes"
 
-class Metabase extends genericMetabase.Metabase {
+export class Metabase extends genericMetabase.Metabase {
     columns: Array<postgresElements.Column>;
     sequences: Array<postgresElements.Sequence>;
     views: Array<postgresElements.View>;
@@ -50,16 +50,16 @@ class Metabase extends genericMetabase.Metabase {
     dropView(): void {
         throw new Error("Method not implemented.");
     }
-    getTable(name: string, schema: string) {
+    getTable(name: string, schema: string): postgresElements.Table {
         throw new Error("Method not implemented.");
     }
-    getColumn(name: string, schema: string) {
+    getColumn(name: string, schema: string): postgresElements.Column {
         throw new Error("Method not implemented.");
     }
-    getSequence(name: string, schema: string) {
+    getSequence(name: string, schema: string): postgresElements.Sequence {
         throw new Error("Method not implemented.");
     }
-    getView(name: string, schema: string) {
+    getView(name: string, schema: string): postgresElements.View {
         throw new Error("Method not implemented.");
     }
 
