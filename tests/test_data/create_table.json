@@ -10,7 +10,7 @@
         "length": 200
       },
       {
-        "name": "col1",
+        "name": "col2",
         "type": "numeric",
         "precision": 1,
         "scale": 2

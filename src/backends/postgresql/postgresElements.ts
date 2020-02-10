@@ -47,9 +47,6 @@ export {
 };
 
 import { RelationalElements } from "../../dataStructures/relationalElements";
-import { DEFAULT_MIN_VERSION } from "tls";
-import { SQLTypes } from "../../SQLTypes";
-import { threadId } from "worker_threads";
 
 export class Column extends RelationalElements.Column {
   name: string;
