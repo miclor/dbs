@@ -14,7 +14,7 @@ it("Read create table statement", () => {
 it("Create Postgresql CreateTableCommand", () => {
   let command = new CreateTableCommand();
 
-  expect(typeof command === CreateTableCommand).toBe(true);
+  expect(command instanceof CreateTableCommand).toBe(true);
 });
 
 it("Alter table, add column", () => {

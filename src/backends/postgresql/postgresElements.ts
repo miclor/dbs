@@ -425,6 +425,7 @@ export class ViewBuilder {
 
 export class Sequence extends RelationalElements.Sequence {
   name: string;
+  schema: string;
   temp?: boolean;
   increment?: number;
   minvalue?: number;
@@ -437,6 +438,7 @@ export class Sequence extends RelationalElements.Sequence {
 
   constructor(
     name: string,
+    schema: string,
     temp?: boolean,
     increment?: number,
     minvalue?: number,
@@ -449,6 +451,7 @@ export class Sequence extends RelationalElements.Sequence {
   ) {
     super();
     this.name = name;
+    this.schema = schema;
     this.temp = temp;
     this.increment = increment;
     this.minvalue = minvalue;
@@ -463,6 +466,7 @@ export class Sequence extends RelationalElements.Sequence {
 
 export class SequenceBuilder {
   name: string = "";
+  schema: string = "";
   temp?: boolean;
   increment?: number;
   minvalue?: number;
@@ -479,6 +483,11 @@ export class SequenceBuilder {
 
   public setName(name: string): SequenceBuilder {
     this.name = name;
+    return this;
+  }
+
+  public setSchema(schema: string): SequenceBuilder {
+    this.schema = schema;
     return this;
   }
 
@@ -530,6 +539,7 @@ export class SequenceBuilder {
   public build(): Sequence {
     return new Sequence(
       this.name,
+      this.schema,
       this.temp,
       this.increment,
       this.minvalue,
