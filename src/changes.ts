@@ -1,9 +1,5 @@
 
 
-
-// commands are sent to the metabase
-// the metabase will sort out where to apply the change
-
 interface Command {
     execute(): void;
 }
