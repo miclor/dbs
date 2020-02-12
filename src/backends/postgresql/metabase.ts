@@ -3,7 +3,6 @@ import * as postgresElements from "./postgresElements"
 import * as postgresTypes from "./postgresTypes"
 
 export class Metabase extends genericMetabase.Metabase {
-    columns: Array<postgresElements.Column>;
     sequences: Array<postgresElements.Sequence>;
     views: Array<postgresElements.View>;
     tables: Array<postgresElements.Table>;
@@ -13,58 +12,56 @@ export class Metabase extends genericMetabase.Metabase {
         this.tables = [];
         this.views = [];
         this.sequences = [];
-        this.columns = [];
 
+    }
+
+    getTable(name: string, schema: string): postgresElements.Table {
+        return this.tables.filter((x) => (x.name == name && x.schema == schema))[0];
     }
 
     addTable(table: postgresElements.Table): void {
-        throw new Error("Method not implemented.");
+        this.tables.push(table);
     }
-
-    // alterTable(table: postgresElements.Table, changeType: changeType, parameters: object): void {
-    //     throw new Error("Method not implemented.");
-    // }    
 
     dropTable(table: postgresElements.Table): void {
-        throw new Error("Method not implemented.");
+        for (let i = 0; i < this.tables.length; i++) {
+            if (this.tables[i] === table) {
+                this.tables.splice(i, 1);
+            }
+        }
     }
 
-    addColumn(column: postgresElements.Column): void {
-        throw new Error("Method not implemented.");
-    }
-    alterColumn(column: postgresElements.Column): void {
-        throw new Error("Method not implemented.");
-    }
-    dropColumn(column: postgresElements.Column): void {
-        throw new Error("Method not implemented.");
+    getSequence(name: string, schema: string): postgresElements.Sequence {
+        return this.sequences.filter((x) => (x.name == name && x.schema == schema))[0];
     }
 
     addSequence(sequence: postgresElements.Sequence): void {
-        throw new Error("Method not implemented.");
+        this.sequences.push(sequence);
     }
-    alterSequence(sequence: postgresElements.Sequence): void {
-        throw new Error("Method not implemented.");
-    }
+
     dropSequence(sequence: postgresElements.Sequence): void {
-        throw new Error("Method not implemented.");
+        for (let i = 0; i < this.sequences.length; i++) {
+            if (this.sequences[i] === sequence) {
+                this.sequences.splice(i, 1);
+            }
+        }
     }
-    addView(view: postgresElements.View): void {
-        throw new Error("Method not implemented.");
-    }
-    dropView(view: postgresElements.View): void {
-        throw new Error("Method not implemented.");
-    }
-    getTable(name: string, schema: string): postgresElements.Table {
-        throw new Error("Method not implemented.");
-    }
-    getColumn(name: string, schema: string): postgresElements.Column {
-        throw new Error("Method not implemented.");
-    }
-    getSequence(name: string, schema: string): postgresElements.Sequence {
-        throw new Error("Method not implemented.");
-    }
+
     getView(name: string, schema: string): postgresElements.View {
-        throw new Error("Method not implemented.");
+        return this.views.filter((x) => (x.name == name && x.schema == schema))[0];
     }
+
+    addView(view: postgresElements.View): void {
+        this.views.push(view);
+    }
+
+    dropView(view: postgresElements.View): void {
+        for (let i = 0; i < this.views.length; i++) {
+            if (this.views[i] === view) {
+                this.views.splice(i, 1);
+            }
+        }
+    }
+
 
 }

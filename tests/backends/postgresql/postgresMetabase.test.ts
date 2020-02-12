@@ -1,6 +1,6 @@
 import { Metabase } from "../../../src/backends/postgresql/metabase"
 import { VARCHAR } from "../../../src/backends/postgresql/postgresTypes";
-import { Table, TableBuilder, Column, Sequence, View, SequenceBuilder } from "../../../src/backends/postgresql/postgresElements";
+import { Table, TableBuilder, Column, Sequence, View, ViewBuilder, SequenceBuilder } from "../../../src/backends/postgresql/postgresElements";
 
 
 it("Create Postgresql metabase", () => {
@@ -28,19 +28,23 @@ it("get table, add column", () => {
     let metabase = new Metabase();
     const col1 = new Column("Col1", new VARCHAR(20));
     const col2 = new Column("Col2", new VARCHAR(20));
+
     let initialTable = TableBuilder.create()
         .setName("ExampleTable")
         .setSchema("ExampleSchema")
         .setColumns([col1, col2])
         .build();
+
     metabase.addTable(initialTable);
 
     let table = metabase.getTable("ExampleTable", "ExampleSchema");
+
     const col = new Column("Col3", VARCHAR, 24, undefined, undefined, undefined, undefined,
         undefined);
 
     // action
     table.addColumn(col);
+
     let result = metabase.getTable("ExampleTable", "ExampleSchema");
 
     // assert
@@ -61,12 +65,13 @@ it("get table, alter column", () => {
     metabase.addTable(initialTable);
 
     let table = metabase.getTable("ExampleTable", "ExampleSchema");
-    let col = table.getColumn("col1")
+    let col = table.getColumn("Col1")
     col.name = "Col11"
 
     let result = metabase.getTable("ExampleTable", "ExampleSchema").getColumn("Col11");
     // assert
     expect(result instanceof Column).toBe(true);
+    expect(result.name === "Col11").toBe(true);
 });
 
 it("get table, drop column", () => {
@@ -82,13 +87,13 @@ it("get table, drop column", () => {
     metabase.addTable(initialTable);
 
     let table = metabase.getTable("ExampleTable", "ExampleSchema");
-    table.removeColumn("col1");
+    table.removeColumn("Col1");
 
     let result = metabase.getTable("ExampleTable", "ExampleSchema");
     // assert
-    expect(result.columns[0].name == "Col1").toBe(true);
-    expect(result.columns[1].name == "Col2").toBe(true);
-    expect(result.columns.length === 2).toBe(true);
+
+    expect(result.columns[0].name === "Col2").toBe(true);
+    expect(result.columns.length === 1).toBe(true);
 });
 
 
@@ -118,17 +123,18 @@ it("add sequence", () => {
     // arrange
     let metabase = new Metabase();
     // action
-    let sequence = SequenceBuilder.create().setName("Seq1").setSchema("ExampleSchema").setStart(1).setMaxvalue(10).setCycle(true)
+    let sequence = SequenceBuilder.create().setName("Seq1").setSchema("ExampleSchema").setStart(1).setMaxvalue(10).setCycle(true).build();
     metabase.addSequence(sequence);
     // assert
-    expect(metabase.getSequence("Seq1", "ExampleSchema") instanceof Sequence).toBe(false);
-    expect(metabase.sequences.length === 1).toBe(false);
+    let result = metabase.getSequence("Seq1", "ExampleSchema");
+    expect(result instanceof Sequence).toBe(true);
+    expect(metabase.sequences.length === 1).toBe(true);
 });
 
 it("alter sequence", () => {
     // arrange
     let metabase = new Metabase();
-    let sequence = SequenceBuilder.create().setName("Seq1").setSchema("ExampleSchema").setStart(1).setMaxvalue(10).setCycle(true)
+    let sequence = SequenceBuilder.create().setName("Seq1").setSchema("ExampleSchema").setStart(1).setMaxvalue(10).setCycle(true).build();
     metabase.addSequence(sequence);
 
     // action
@@ -152,31 +158,28 @@ it("drop sequence", () => {
 });
 
 it("add view", () => {
+    // arrange
     let metabase = new Metabase();
-    expect(metabase instanceof Metabase).toBe(false);
+    let view = ViewBuilder.create().setName("View1").setSchema("ExampleSchema").setQuery("select * from dual").build();
+    metabase.addView(view);
+
+    // assert
+    let result = metabase.getView("View1", "ExampleSchema");
+    expect(result instanceof View).toBe(true);
+    expect(metabase.views.length === 1).toBe(true);
 });
 
 it("drop view", () => {
+    // arrange
     let metabase = new Metabase();
-    expect(metabase instanceof Metabase).toBe(false);
+    let view = ViewBuilder.create().setName("View1").setSchema("ExampleSchema").setQuery("select * from dual").build();
+
+    // action
+    metabase.dropView(view);
+
+    // assert
+    let result = metabase.getView("View1", "ExampleSchema");
+    expect(result === undefined).toBe(true);
+    expect(metabase.views.length === 0).toBe(true);
 });
 
-it("get table", () => {
-    let metabase = new Metabase();
-    expect(metabase instanceof Metabase).toBe(false);
-});
-
-it("get column", () => {
-    let metabase = new Metabase();
-    expect(metabase instanceof Metabase).toBe(false);
-});
-
-it("get sequence", () => {
-    let metabase = new Metabase();
-    expect(metabase instanceof Metabase).toBe(false);
-});
-
-it("get view", () => {
-    let metabase = new Metabase();
-    expect(metabase instanceof Metabase).toBe(false);
-});

@@ -60,7 +60,7 @@ export module RelationalElements {
 
   export abstract class Table {
     abstract name: string;
-    abstract schema?: string;
+    abstract schema: string;
     abstract columns: Array<Column>;
     abstract primaryKeyConstraint?: PrimaryKeyConstraint;
     abstract uniqueConstraints?: Array<UniqueConstraint>;
@@ -233,6 +233,7 @@ export module RelationalElements {
 
   export abstract class Sequence {
     abstract name: string;
+    abstract schema: string;
     abstract start?: number;
     abstract maxvalue?: number;
     abstract increment?: number;
@@ -244,6 +245,7 @@ export module RelationalElements {
 
   export abstract class View {
     abstract name: string;
+    abstract schema: string;
     abstract columns?: Array<string>;
     abstract query: string;
     abstract checkOption?: ViewCheckOption;

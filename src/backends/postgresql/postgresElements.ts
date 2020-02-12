@@ -181,7 +181,7 @@ export type Constraint =
 
 export class Table extends RelationalElements.Table {
   name: string;
-  schema?: string;
+  schema: string;
   columns: Array<Column>;
   primaryKeyConstraint?: PrimaryKeyConstraint;
   uniqueConstraints?: Array<UniqueConstraint>;
@@ -197,8 +197,8 @@ export class Table extends RelationalElements.Table {
 
   constructor(
     name: string,
+    schema: string,
     columns: Array<Column>,
-    schema?: string,
     primaryKeyConstraint?: PrimaryKeyConstraint,
     uniqueConstraints?: Array<UniqueConstraint>,
     notNullConstraints?: Array<NotNullConstraint>,
@@ -213,7 +213,8 @@ export class Table extends RelationalElements.Table {
   ) {
     super();
     this.name = name;
-    (this.schema = schema), (this.columns = columns);
+    this.schema = schema;
+    this.columns = columns;
     this.primaryKeyConstraint = primaryKeyConstraint;
     this.uniqueConstraints = uniqueConstraints;
     this.notNullConstraints = notNullConstraints;
@@ -226,11 +227,12 @@ export class Table extends RelationalElements.Table {
     this.tablespace = tablespace;
     this.indexTablespace = indexTablespace;
   }
+
 }
 
 export class TableBuilder {
   name: string = "";
-  schema?: string;
+  schema: string = "";
   columns: Array<Column> = [];
   primaryKeyConstraint?: PrimaryKeyConstraint;
   uniqueConstraints?: Array<UniqueConstraint>;
@@ -253,15 +255,13 @@ export class TableBuilder {
     return this;
   }
 
-  public setColumns(columns: Array<Column>): TableBuilder {
-    this.columns = columns;
+  public setSchema(schema: string): TableBuilder {
+    this.schema = schema;
     return this;
   }
 
-  public setSchema(schema: string): TableBuilder {
-    if (this.schema) {
-      this.schema = schema;
-    }
+  public setColumns(columns: Array<Column>): TableBuilder {
+    this.columns = columns;
     return this;
   }
 
@@ -334,8 +334,8 @@ export class TableBuilder {
   public build(): Table {
     return new Table(
       this.name,
-      this.columns,
       this.schema,
+      this.columns,
       this.primaryKeyConstraint,
       this.uniqueConstraints,
       this.notNullConstraints,
@@ -353,6 +353,7 @@ export class TableBuilder {
 
 export class View extends RelationalElements.View {
   name: string;
+  schema: string;
   columns?: Array<string>;
   query: string;
   checkOption?: RelationalElements.ViewCheckOption;
@@ -360,6 +361,7 @@ export class View extends RelationalElements.View {
 
   constructor(
     name: string,
+    schema: string,
     query: string,
     columns?: Array<string>,
     checkOption?: RelationalElements.ViewCheckOption,
@@ -367,6 +369,7 @@ export class View extends RelationalElements.View {
   ) {
     super();
     this.name = name;
+    this.schema = schema;
     this.query = query;
     this.columns = columns;
     this.checkOption = checkOption;
@@ -376,6 +379,7 @@ export class View extends RelationalElements.View {
 
 export class ViewBuilder {
   name: string = "";
+  schema: string = "";
   columns?: Array<string>;
   query: string = "";
   checkOption?: RelationalElements.ViewCheckOption;
@@ -387,6 +391,11 @@ export class ViewBuilder {
 
   public setName(name: string): ViewBuilder {
     this.name = name;
+    return this;
+  }
+
+  public setSchema(schema: string): ViewBuilder {
+    this.schema = schema;
     return this;
   }
 
@@ -415,6 +424,7 @@ export class ViewBuilder {
   public build(): View {
     return new View(
       this.name,
+      this.schema,
       this.query,
       this.columns,
       this.checkOption,
