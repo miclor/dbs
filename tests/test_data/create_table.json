@@ -2,15 +2,16 @@
   "change_type": "create",
   "object_type": "table",
   "parameters": {
-    "name": "example_table",
+    "name": "exampleTable",
+    "schema": "exampleSchema",
     "columns": [
       {
-        "name": "col1",
+        "name": "Col1",
         "type": "varchar",
         "length": 200
       },
       {
-        "name": "col2",
+        "name": "Col2",
         "type": "numeric",
         "precision": 1,
         "scale": 2
