@@ -10,7 +10,8 @@ it("Read change an parameters", () => {
   const path = require("path");
   const file_path = path.resolve(__dirname, "../../test_data/create_table.json");
 
-  const chgReader = new ChangeReader();
+  let metabase = new Metabase();
+  const chgReader = new ChangeReader(metabase);
   const change = chgReader.readChangeFromDisk(file_path);
 
   console.log("change--->", change)
@@ -22,14 +23,14 @@ it("Read change an parameters", () => {
   // }
   //   }
 
-  const col1 = new Column("Col1", new VARCHAR(20));
-  const col2 = new Column("Col2", new VARCHAR(20));
-  const cols = [col1, col2];
-  let testTable = TableBuilder.create()
-    .setName("ExampleTable")
-    .setSchema("ExampleSchema")
-    .setColumns(cols)
-    .build();
+  // const col1 = new Column("Col1", new VARCHAR(20));
+  // const col2 = new Column("Col2", new VARCHAR(20));
+  // const cols = [col1, col2];
+  // let testTable = TableBuilder.create()
+  //   .setName("ExampleTable")
+  //   .setSchema("ExampleSchema")
+  //   .setColumns(cols)
+  //   .build();
 
 
 
