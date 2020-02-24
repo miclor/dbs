@@ -1,20 +1,27 @@
 import { readFileSync } from "fs";
-import { Table, TableBuilder } from "../../../src/backends/postgresql/postgresElements"
+import {
+  Table,
+  TableBuilder
+} from "../../../src/backends/postgresql/postgresElements";
 import { ChangeReader } from "../../../src/backends/postgresql/postgresChanges";
 import { Metabase } from "../../../src/backends/postgresql/metabase";
-import { VARCHAR, Column } from "../../../src/backends/postgresql/postgresElements"
-
+import {
+  VARCHAR,
+  Column
+} from "../../../src/backends/postgresql/postgresElements";
 
 it("Read change an parameters", () => {
-
   const path = require("path");
-  const file_path = path.resolve(__dirname, "../../test_data/create_table.json");
+  const file_path = path.resolve(
+    __dirname,
+    "../../test_data/create_table.json"
+  );
 
   let metabase = new Metabase();
   const chgReader = new ChangeReader(metabase);
   const change = chgReader.readChangeFromDisk(file_path);
 
-  console.log("change--->", change)
+  console.log("change read from dist--->", change);
 
   //   for (let result in change) {
   //     console.log("result->", result);
@@ -32,52 +39,5 @@ it("Read change an parameters", () => {
   //   .setColumns(cols)
   //   .build();
 
-
-
   expect(change.columns[0].name === "Col1").toBe(true);
 });
-
-
-// it("Create Postgresql CreateTableCommand", () => {
-//   let command = new CreateTableCommand();
-
-//   expect(command instanceof CreateTableCommand).toBe(true);
-// });
-
-// it("Alter table, add column", () => {
-
-// });
-
-// it("Alter table, modify column", () => {
-
-// });
-
-// it("Alter table, drop column", () => {
-
-// });
-
-// it("Drop table", () => {
-
-// });
-
-// it("Create sequence", () => {
-
-// });
-
-// it("Alter sequence, modify maxvalue", () => {
-
-// });
-
-// it("Drop sequence", () => {
-
-// });
-
-
-// it("Create view", () => {
-
-// });
-
-// it("Drop view", () => {
-
-// });
-

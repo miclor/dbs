@@ -413,7 +413,15 @@ it("add/get/remove ForeignKeyConstraint", () => {
     .setColumns([col3, col4])
     .build();
 
-  let fk1 = new ForeignKeyConstraint("fk1", testTable, ["Col1"], testTable2, ["Col1"], "CASCADE", "CASCADE");
+  let fk1 = new ForeignKeyConstraint(
+    "fk1",
+    testTable,
+    ["Col1"],
+    testTable2,
+    ["Col1"],
+    "CASCADE",
+    "CASCADE"
+  );
   testTable.addForeignKeyConstraint(fk1);
   expect(testTable instanceof Table).toBe(true);
 
@@ -436,15 +444,12 @@ it("add/get/remove column", () => {
   expect(testTable instanceof Table).toBe(true);
   testTable.addColumn(col2);
 
-  const resultCol = testTable.getColumn("Col2")
+  const resultCol = testTable.getColumn("Col2");
   expect(resultCol instanceof Column).toBe(true);
 
   testTable.removeColumn("Col2");
   expect(testTable.getColumn("Col2") === undefined).toBe(true);
-
-
 });
-
 
 // create sequences
 it("Create sequence with start 1", () => {
