@@ -20,3 +20,23 @@ export interface TableParameters extends Parameters {
     defaultConstraints?: Array<RelationalElements.DefaultConstraint>;
     foreignKeyConstraints?: Array<RelationalElements.ForeignKeyConstraint>;
 }
+
+export interface ViewParameters extends Parameters {
+  name: string;
+  schema: string;
+  columns?: Array<string>;
+  query: string;
+  checkOption?: RelationalElements.ViewCheckOption;
+}
+
+export interface SequenceParameters extends Parameters {
+  name: string;
+  schema: string;
+  start?: number;
+  maxvalue?: number;
+  increment?: number;
+  minvalue?: number;
+  noMaxvalue?: boolean;
+  cache?: boolean;
+  cycle?: boolean;
+}

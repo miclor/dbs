@@ -21,6 +21,15 @@ export interface Change extends RelationalChange.Change{
   parameters: TableParameters;
 }
 
+export interface ViewParameters extends RelationalChange.ViewParameters{
+  tablespace?: string;
+}
+
+// how to automatically enumerate and add attributes of the corresponding subclass?
+export interface SequenceParameters extends RelationalChange.SequenceParameters{
+}
+
+
 export class ChangeReader {
   private metabase: Metabase;
 
