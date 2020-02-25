@@ -1,4 +1,4 @@
-import { RelationalElements } from "./dataStructures/relationalElements";
+import * as  RelationalElements from "./dataStructures/relationalElements";
 
 
 export abstract class Metabase {

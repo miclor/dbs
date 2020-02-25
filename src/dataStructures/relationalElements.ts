@@ -1,6 +1,6 @@
 import { Domains, SQLTypes } from "../SQLTypes";
 
-export module RelationalElements {
+
   export abstract class Column {
     abstract name: string;
     abstract type: SQLTypes.SQLType;
@@ -252,5 +252,3 @@ export module RelationalElements {
   }
 
   export type ViewCheckOption = "LOCAL" | "CASCADE";
-
-}

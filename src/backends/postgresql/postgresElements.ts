@@ -46,7 +46,7 @@ export {
   Type
 };
 
-import { RelationalElements } from "../../dataStructures/relationalElements";
+import * as RelationalElements from "../../dataStructures/relationalElements";
 
 export class Column extends RelationalElements.Column {
   name: string;

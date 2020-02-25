@@ -1,35 +1,22 @@
+import * as RelationalElements from "./dataStructures/relationalElements";
 
 
-interface Command {
-    execute(): void;
-}
+export interface Change {
+    changeType: string;
+    objectType: string;
+    parameters: Parameters;
+  }
 
-export abstract class CreateTableCommand implements Command {
-    public execute(): void { };
-}
+export abstract class Parameters {}
 
-export abstract class AlterTableCommand implements Command {
-    public execute(): void { };
-}
-
-export abstract class DropTableCommand implements Command {
-    public execute(): void { };
-}
-
-export abstract class CreateColumnCommand implements Command {
-    public execute(): void { };
-}
-
-export abstract class AlterColumnCommand implements Command {
-    public execute(): void { };
-}
-
-export abstract class DropColumnCommand implements Command {
-    public execute(): void { };
-}
-
-
-export interface CommandCreator {
-    readJSON(): void;
-    createCommand(parameters: json): void;
+export interface TableParameters extends Parameters {
+    name: string;
+    schema: string;
+    columns: Array<RelationalElements.Column>;
+    primaryKeyConstraint?: RelationalElements.PrimaryKeyConstraint;
+    uniqueConstraints?: Array<RelationalElements.UniqueConstraint>;
+    notNullConstraints?: Array<RelationalElements.NotNullConstraint>;
+    checkConstraints?: Array<RelationalElements.CheckConstraint>;
+    defaultConstraints?: Array<RelationalElements.DefaultConstraint>;
+    foreignKeyConstraints?: Array<RelationalElements.ForeignKeyConstraint>;
 }

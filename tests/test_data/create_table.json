@@ -1,6 +1,6 @@
 {
-  "change_type": "create",
-  "object_type": "table",
+  "changeType": "create",
+  "objectType": "table",
   "parameters": {
     "name": "exampleTable",
     "schema": "exampleSchema",
