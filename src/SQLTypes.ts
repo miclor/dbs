@@ -8,7 +8,6 @@ export module Domains {
   export abstract class FloatDomain extends GenericDomain { }
 }
 
-export module SQLTypes {
   export interface SQLTypeFactory {
     char(len: number): CHAR;
     varchar(len: number): VARCHAR;
@@ -105,4 +104,4 @@ export module SQLTypes {
   export abstract class BOOLEAN { }
 
   export abstract class XML { }
-}
+

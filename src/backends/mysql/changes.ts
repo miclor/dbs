@@ -11,24 +11,32 @@ import { readFileSync } from "fs";
 import { Metabase } from "./metabase";
 import * as RelationalChange from "../../changes";
 
-export interface TableParameters extends RelationalChange.TableParameters{
-  tablespace?: string;
-}
+export interface TableParameters extends RelationalChange.TableParameters{}
 
+export interface ViewParameters extends RelationalChange.ViewParameters{  }
+
+export interface SequenceParameters extends RelationalChange.SequenceParameters{}
+
+export interface IndexParameters extends RelationalChange.IndexParameters{}
+
+export interface TriggerParameters extends RelationalChange.TriggerParameters {}
+
+export interface IndexParameters extends RelationalChange.IndexParameters {}
+
+export interface ProcedureParameters extends RelationalChange.ProcedureParameters {}
+
+export interface FunctionParameters extends RelationalChange.FunctionParameters {}
+
+export interface SchemaParameters extends RelationalChange.SchemaParameters {}
+
+export interface UserParameters extends RelationalChange.UserParameters {}
+
+export interface RolesParameters extends RelationalChange.RolesParameters {}
 export interface Change extends RelationalChange.Change{
   changeType: string;
   objectType: string;
-  parameters: TableParameters;
+  parameters: RelationalChange.Parameters;
 }
-
-export interface ViewParameters extends RelationalChange.ViewParameters{
-  tablespace?: string;
-}
-
-// how to automatically enumerate and add attributes of the corresponding subclass?
-export interface SequenceParameters extends RelationalChange.SequenceParameters{
-}
-
 
 export class ChangeReader {
   private metabase: Metabase;
