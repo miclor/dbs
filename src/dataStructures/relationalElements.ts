@@ -1,4 +1,4 @@
-import { Domains, SQLTypes } from "../SQLTypes";
+import * as SQLTypes from "../SQLTypes";
 
 
   export abstract class Column {

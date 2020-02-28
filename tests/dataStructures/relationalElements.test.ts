@@ -1,5 +1,5 @@
 import * as RelationalElements from "../../src/dataStructures/relationalElements";
-import { SQLTypes } from "../../src/SQLTypes";
+import * as SQLTypes from "../../src/SQLTypes";
 
 it("Create generic string column", () => {
   class StringCol extends RelationalElements.Column {

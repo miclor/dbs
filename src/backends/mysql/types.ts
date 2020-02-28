@@ -1,4 +1,4 @@
-import { SQLTypes } from "../../SQLTypes";
+import * as SQLTypes from "../../SQLTypes";
 
 //export module MysqlTypes {
 
