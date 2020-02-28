@@ -6,9 +6,9 @@ import {
   TableBuilder,
   ViewBuilder,
   Constraint
-} from "../../../src/backends/postgresql/postgresElements";
+} from "../../../src/backends/mysql/schemaObjects";
 import { readFileSync } from "fs";
-import { Metabase } from "../../../src/backends/postgresql/metabase";
+import { Metabase } from "./metabase";
 import * as RelationalChange from "../../changes";
 
 export interface TableParameters extends RelationalChange.TableParameters{
@@ -50,7 +50,7 @@ export class ChangeReader {
 
 }
 
-export class PostgresChange {
+export class MysqlChange {
   constructor() {}
 
   // public createTable(): Table {

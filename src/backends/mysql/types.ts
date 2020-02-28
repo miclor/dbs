@@ -1,8 +1,8 @@
 import { SQLTypes } from "../../SQLTypes";
 
-//export module PostgresTypes {
+//export module MysqlTypes {
 
-export class PostgresTypeFactory implements SQLTypes.SQLTypeFactory {
+export class MysqlTypeFactory implements SQLTypes.SQLTypeFactory {
   public char(len: number): SQLTypes.CHAR {
     return new CHAR(len);
   }

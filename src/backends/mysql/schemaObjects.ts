@@ -20,7 +20,7 @@ import {
   BOOLEAN,
   XML,
   Type
-} from "./postgresTypes";
+} from "./types";
 
 export {
   CHAR,
@@ -563,7 +563,7 @@ export class SequenceBuilder {
   }
 }
 
-// export class PostgresElementFactory
+// export class MysqlElementFactory
 //   implements RelationalElements.RelationalElementFactory {
 //   table(
 //     name: string,

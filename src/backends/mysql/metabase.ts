@@ -1,11 +1,11 @@
 import * as genericMetabase from "../../metabase"
-import * as postgresElements from "./postgresElements"
-import * as postgresTypes from "./postgresTypes"
+import * as mysqlElements from "./schemaObjects"
+import * as mysqlTypes from "./types"
 
 export class Metabase extends genericMetabase.Metabase {
-    sequences: Array<postgresElements.Sequence>;
-    views: Array<postgresElements.View>;
-    tables: Array<postgresElements.Table>;
+    sequences: Array<mysqlElements.Sequence>;
+    views: Array<mysqlElements.View>;
+    tables: Array<mysqlElements.Table>;
 
     constructor() {
         super();
@@ -15,15 +15,15 @@ export class Metabase extends genericMetabase.Metabase {
 
     }
 
-    getTable(name: string, schema: string): postgresElements.Table {
+    getTable(name: string, schema: string): mysqlElements.Table {
         return this.tables.filter((x) => (x.name == name && x.schema == schema))[0];
     }
 
-    addTable(table: postgresElements.Table): void {
+    addTable(table: mysqlElements.Table): void {
         this.tables.push(table);
     }
 
-    dropTable(table: postgresElements.Table): void {
+    dropTable(table: mysqlElements.Table): void {
         for (let i = 0; i < this.tables.length; i++) {
             if (this.tables[i] === table) {
                 this.tables.splice(i, 1);
@@ -31,15 +31,15 @@ export class Metabase extends genericMetabase.Metabase {
         }
     }
 
-    getSequence(name: string, schema: string): postgresElements.Sequence {
+    getSequence(name: string, schema: string): mysqlElements.Sequence {
         return this.sequences.filter((x) => (x.name == name && x.schema == schema))[0];
     }
 
-    addSequence(sequence: postgresElements.Sequence): void {
+    addSequence(sequence: mysqlElements.Sequence): void {
         this.sequences.push(sequence);
     }
 
-    dropSequence(sequence: postgresElements.Sequence): void {
+    dropSequence(sequence: mysqlElements.Sequence): void {
         for (let i = 0; i < this.sequences.length; i++) {
             if (this.sequences[i] === sequence) {
                 this.sequences.splice(i, 1);
@@ -47,15 +47,15 @@ export class Metabase extends genericMetabase.Metabase {
         }
     }
 
-    getView(name: string, schema: string): postgresElements.View {
+    getView(name: string, schema: string): mysqlElements.View {
         return this.views.filter((x) => (x.name == name && x.schema == schema))[0];
     }
 
-    addView(view: postgresElements.View): void {
+    addView(view: mysqlElements.View): void {
         this.views.push(view);
     }
 
-    dropView(view: postgresElements.View): void {
+    dropView(view: mysqlElements.View): void {
         for (let i = 0; i < this.views.length; i++) {
             if (this.views[i] === view) {
                 this.views.splice(i, 1);

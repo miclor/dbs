@@ -1,4 +1,4 @@
-import { CHAR, VARCHAR, CLOB, BINARY, VARBINARY, BLOB, NUMERIC, DECIMAL, SMALLINT, INTEGER, BIGINT, FLOAT, REAL, DOUBLE_PRECISION, DATE, TIME, TIMESTAMP, INTERVAL, BOOLEAN, XML } from "../../../src/backends/postgresql/postgresTypes";
+import { CHAR, VARCHAR, CLOB, BINARY, VARBINARY, BLOB, NUMERIC, DECIMAL, SMALLINT, INTEGER, BIGINT, FLOAT, REAL, DOUBLE_PRECISION, DATE, TIME, TIMESTAMP, INTERVAL, BOOLEAN, XML } from "../../../src/backends/mysql/types";
 
 it("Create PostgreSQL char type", () => {
   let len: number = 20;

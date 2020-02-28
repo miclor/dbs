@@ -2,13 +2,13 @@ import { readFileSync } from "fs";
 import {
   Table,
   TableBuilder
-} from "../../../src/backends/postgresql/postgresElements";
-import { ChangeReader } from "../../../src/backends/postgresql/postgresChanges";
-import { Metabase } from "../../../src/backends/postgresql/metabase";
+} from "../../../src/backends/mysql/schemaObjects";
+import { ChangeReader } from "../../../src/backends/mysql/changes";
+import { Metabase } from "../../../src/backends/mysql/metabase";
 import {
   VARCHAR,
   Column
-} from "../../../src/backends/postgresql/postgresElements";
+} from "../../../src/backends/mysql/schemaObjects";
 
 it("Read a change to interface", () => {
   const path = require("path");

@@ -32,7 +32,7 @@ import {
   View,
   ViewBuilder,
   TableBuilder
-} from "../../../src/backends/postgresql/postgresElements";
+} from "../../../src/backends/mysql/schemaObjects";
 
 it("Create columns of CHAR", () => {
   const col = new Column("col1", new CHAR(23));

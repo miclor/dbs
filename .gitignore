@@ -2,3 +2,4 @@ node_modules
 rename.sh
 .vscode
 coverage
+docs

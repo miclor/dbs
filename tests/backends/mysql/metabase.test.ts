@@ -1,9 +1,9 @@
-import { Metabase } from "../../../src/backends/postgresql/metabase"
-import { VARCHAR } from "../../../src/backends/postgresql/postgresTypes";
-import { Table, TableBuilder, Column, Sequence, View, ViewBuilder, SequenceBuilder } from "../../../src/backends/postgresql/postgresElements";
+import { Metabase } from "../../../src/backends/mysql/metabase"
+import { VARCHAR } from "../../../src/backends/mysql/types";
+import { Table, TableBuilder, Column, Sequence, View, ViewBuilder, SequenceBuilder } from "../../../src/backends/mysql/schemaObjects";
 
 
-it("Create Postgresql metabase", () => {
+it("Create Mysql metabase", () => {
     let metabase = new Metabase();
     expect(metabase instanceof Metabase).toBe(true);
 });
