@@ -32,6 +32,7 @@ export interface SchemaParameters extends RelationalChange.SchemaParameters {}
 export interface UserParameters extends RelationalChange.UserParameters {}
 
 export interface RolesParameters extends RelationalChange.RolesParameters {}
+
 export interface Change extends RelationalChange.Change{
   changeType: string;
   objectType: string;
@@ -39,10 +40,8 @@ export interface Change extends RelationalChange.Change{
 }
 
 export class ChangeReader {
-  private metabase: Metabase;
 
-  constructor(metabase: Metabase) {
-    this.metabase = metabase;
+  constructor() {
   }
 
   readChangeFromDisk(filePath: string): Change {
@@ -58,18 +57,20 @@ export class ChangeReader {
 
 }
 
-export class MysqlChange {
-  constructor() {}
+export class ChangeApplier {
+  private metabase: Metabase;
+  constructor(metabase: Metabase) {
+    this.metabase = metabase;
+  }
 
-  // public createTable(): Table {
+  public createTable(change: Change) : void {
+      const params : TableParameters = change.parameters as TableParameters;
+      const testTable = TableBuilder.create()
+          .setName(params["name"])
+          .setSchema(params["schema"])
+          .setColumns(params["columns"])
+          .build();
+      this.metabase.addTable(testTable);
+  }
 
-  //     const col1 = new Column("Col1", new VARCHAR(20));
-  //     const col2 = new Column("Col2", new VARCHAR(20));
-  //     const cols = [col1, col2];
-  //     let testTable = TableBuilder.create()
-  //         .setName("ExampleTable")
-  //         .setSchema("ExampleSxhema")
-  //         .setColumns(cols)
-  //         .build();
-  // }
 }
